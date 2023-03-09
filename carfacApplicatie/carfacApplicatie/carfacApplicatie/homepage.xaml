@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="carfacApplicatie.homepage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundImageSource="achtergrond4">
+    <ContentPage.Content>
+
+        <StackLayout VerticalOptions="Start">
+
+            <Image Source="carfac.png" Margin="0,20,0,40"></Image>
+
+
+            <Label Text="Waar bent u naar op zoek?"
+                   HorizontalOptions="Center"
+                   Margin="10"
+                   FontSize="27"
+                   FontFamily="tiltwarp"
+                   TextColor="Black"></Label>
+
+            <FlexLayout VerticalOptions="Center">
+
+                <StackLayout>
+
+                    <Button
+                Text="wagen"
+                FontSize="30"
+                FontFamily="tiltwarp"
+                CornerRadius="20"
+                BorderWidth="1.5"
+                WidthRequest="170"
+                HeightRequest="200"
+                Margin="10"
+                Clicked="wagen_clicked"
+                BackgroundColor="White"
+                >
+                    </Button>
+
+                    <Button
+                Text="artikel"
+                FontSize="30"
+                FontFamily="tiltwarp"
+                CornerRadius="20"
+                BorderWidth="1.5"
+                WidthRequest="170"
+                HeightRequest="140"
+                Margin="10"
+                Clicked="artikel_clicked"
+                BackgroundColor="white"
+                >
+                    </Button>
+
+                </StackLayout>
+
+
+                <StackLayout>
+
+                    <Button
+                Text="klant"
+                FontSize="30"
+                FontFamily="tiltwarp"
+                CornerRadius="20"
+                BorderWidth="1.5"
+                WidthRequest="170"
+                HeightRequest="140"
+                Margin="10"
+                Clicked="klant_clicked"
+                BackgroundColor="white"
+                >
+                    </Button>
+
+                    <Button
+                Text="werkorder"
+                FontSize="24"
+                FontFamily="tiltwarp"
+                CornerRadius="20"
+                BorderWidth="1.5"
+                WidthRequest="170"
+                HeightRequest="200"
+                Margin="10"
+                Clicked="werkorder_clicked"
+                BackgroundColor="white"
+                >
+                    </Button>
+
+                </StackLayout>
+
+            </FlexLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

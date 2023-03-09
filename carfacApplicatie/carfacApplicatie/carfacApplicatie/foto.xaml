@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="carfacApplicatie.foto">
+    
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Start">
+            <FlexLayout HeightRequest="100">
+
+                <Image Source="delete.png"
+                       Margin="10"></Image>
+                <Image Source="bewerk.png"
+                       Margin="10">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="bewerk_clicked"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="download.png"
+                       Margin="10">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="save_clicked"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                
+            </FlexLayout>
+
+            <Image x:Name="photo" ></Image>
+
+            <Editor x:Name="editorBeschrijving" Placeholder="beschrijving" Margin="10"></Editor>
+
+            <Button x:Name="uploadbutton" Text="upload" Clicked="upload_clicked" IsVisible="false">
+            </Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

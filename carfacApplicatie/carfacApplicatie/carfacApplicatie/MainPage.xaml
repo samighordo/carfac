@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="carfacApplicatie.MainPage"
+             BackgroundImageSource="achtergrond3.png"
+             NavigationPage.HasNavigationBar="False"
+             >
+
+    <StackLayout>
+
+        <Image Source="carfac.png"
+               Margin="40,20,40,20"></Image>
+
+        <Entry Placeholder="Gebruikersnaam" TextColor="white" PlaceholderColor="white" Margin="10,20,10,0" ></Entry>
+        <Entry Placeholder="Wachtwoord" TextColor="white" PlaceholderColor="white" Margin="10,20,10,0"></Entry>
+        <Button
+            Text="wachtwoord vergeten?"
+            BackgroundColor="Transparent"
+            TextColor="White"
+            HorizontalOptions="End"
+            BorderColor="Transparent"
+            FontSize="Small"></Button>
+        <Button
+            Text="login"
+            Clicked="GetToken"
+            Margin="80,40,80,40"
+            BackgroundColor="Transparent"
+            TextColor="White"
+            BorderWidth="1.5"
+            BorderColor="White">
+
+        </Button>
+    </StackLayout>
+
+</ContentPage>

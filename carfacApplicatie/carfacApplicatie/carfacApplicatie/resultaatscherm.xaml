@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="carfacApplicatie.resultaatscherm"
+             BackgroundColor="WhiteSmoke"
+>
+    <ContentPage.Content>
+        <StackLayout>
+
+            <ScrollView>
+                <StackLayout>
+
+                    <StackLayout Margin="20" BackgroundColor="White">
+
+                        <Label x:Name="eerste" FontSize="30" TextColor="Black" HorizontalOptions="Center"></Label>
+                        <Line X1="0" Y1="0" X2="1000" Y2="0" Stroke="black" Margin="0" />
+                        <Label x:Name="tweede" FontSize="20" TextColor="Black" Margin="10,0,0,0"></Label>
+                        <Label x:Name="derde" FontSize="20" TextColor="Black" Margin="10,0,0,0"></Label>
+                        <Label x:Name="vierde" FontSize="20" TextColor="Black" Margin="10,0,0,0"></Label>
+
+                    </StackLayout>
+
+
+
+                    <ListView x:Name="afbeeldinglijst" HasUnevenRows="True" SeparatorVisibility="None" ItemTapped="afbeelding_clicked">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Image Source="{Binding ImageSource}" Aspect="AspectFit" WidthRequest="300" HeightRequest="150" Margin="10"
+                                           AutomationProperties.Name="{Binding beschrijving}" >
+                                    </Image>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+
+
+                </StackLayout>
+
+            </ScrollView>
+
+            <Image Source="afbeeldingknop"
+                       WidthRequest="150"
+                       VerticalOptions="End" Margin="0,0,0,20">
+
+                <Image.GestureRecognizers>
+
+                    <TapGestureRecognizer Tapped="toon_popup"></TapGestureRecognizer>
+
+                </Image.GestureRecognizers>
+
+            </Image>
+
+        </StackLayout>
+
+
+    </ContentPage.Content>
+
+    
+</ContentPage>
+
