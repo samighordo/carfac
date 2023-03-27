@@ -16,9 +16,10 @@ using Android.Content;
 
 namespace carfacApplicatie.Droid
 {
-    [Activity(Label = "carfacApplicatie", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
+    [Activity(Label = "carfacApplicatie", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        public static MainActivity Instance { get; private set; }
         protected override void OnCreate(Bundle savedInstanceState)
         {
 
@@ -48,19 +49,20 @@ namespace carfacApplicatie.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            Instance = this;
             LoadApplication(new App());
         }
 
-            protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            if (NativeMedia.Platform.CheckCanProcessResult(requestCode, resultCode, data))
             {
-                if(NativeMedia.Platform.CheckCanProcessResult(requestCode, resultCode, data))
-                {
-                    NativeMedia.Platform.OnActivityResult(requestCode, resultCode, data);
-                }
+                NativeMedia.Platform.OnActivityResult(requestCode, resultCode, data);
+            }
 
             base.OnActivityResult(requestCode, resultCode, data);
-            }
-        
+        }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);

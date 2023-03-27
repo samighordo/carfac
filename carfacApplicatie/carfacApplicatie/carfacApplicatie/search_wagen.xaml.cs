@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rg.Plugins.Popup;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
@@ -8,6 +9,8 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Android.Resource;
+using String = System.String;
 
 namespace carfacApplicatie
 {
@@ -18,7 +21,6 @@ namespace carfacApplicatie
         {
             InitializeComponent();
 
-            
 
             autobar.SearchButtonPressed += (s, e) =>
             {
@@ -29,82 +31,121 @@ namespace carfacApplicatie
 
         async void zoek_clicked(object sender, EventArgs e)
         {
+            globals.wagenItemLijst.Clear();
 
             var baseClient = new HttpClient();
             baseClient.DefaultRequestHeaders.TryAddWithoutValidation("CarfacStandardApiJWT", globals.token);
 
             String s = autobar.Text;
+            String str = "";
 
-            var resultJson = await baseClient.GetAsync("https://dev.carfac.com/standard/api/Vehicle/GetVehicleByID?id=" + s);
-
-            if (resultJson.IsSuccessStatusCode)
+           if(autobar.Text == null)
             {
-                var responseContent = await resultJson.Content.ReadAsStringAsync();
-
-                String[] resultArray = responseContent.Split(',');
-
-                wagen.id = resultArray[0].Substring(13).Replace("\"", "");
-                wagen.merk = resultArray[1].Substring(9).Replace("\"", "");
-                wagen.model = resultArray[2].Substring(9).Replace("\"", "");
-                wagen.nummerplaat = resultArray[3].Substring(16).Replace("\"", "");
-
-                Debug.Write(responseContent);
-
-                globals.soort = "wagen";
-                globals.id = autobar.Text;
-
-
-
-
-                var baseClient2 = new HttpClient();
-                var loginContract = new
+                await DisplayAlert("", "De zoekbalk mag niet leeg zijn.", "ok");
+            }
+            else
+            {
+                if (autobar.Placeholder == "nummerplaat")
                 {
-                    Type = "Vehicle",
-                    Id = globals.id,
-                    Paging = new Paging { StartAtRecord = 1, NumberOfRecords = 100 }
-                };
-
-
-                var content = new StringContent(JsonSerializer.Serialize(loginContract), Encoding.UTF8, "application/json");
-                Task<HttpResponseMessage> responseTask = baseClient.PostAsync($"https://dev.carfac.com/standard/api/File/GetFileList", content);
-                responseTask.Wait();
-                HttpResponseMessage response = responseTask.Result;
-                Task<string> resultTask = response.Content.ReadAsStringAsync();
-                resultTask.Wait();
-                string result = resultTask.Result;
-
-                Debug.Write(result);
-
-                List<string> list = new List<string>();
-
-                if (result != null && result != "\"There was an internal server error: .\"")
-                {
-                    globals.lijst.Clear();
-                    String[] array1 = result.Split('[');
-                    String[] array2 = array1[1].Split('{');
-                    for (int i = 1; i < array2.Length; i++)
+                    var loginContract = new
                     {
-                        String[] array3 = array2[i].Split(',');
-                        String idString = array3[0].Substring(9);
-                        list.Add(idString);
-                    }
+                        Licensceplate = "%" + s + "%"
+                    };
+                    var content = new StringContent(JsonSerializer.Serialize(loginContract), Encoding.UTF8, "application/json");
+                    Task<HttpResponseMessage> responseTask = baseClient.PostAsync($"https://dev.carfac.com/standard/api/Vehicle/GetVehicles", content);
+                    responseTask.Wait();
+                    HttpResponseMessage response = responseTask.Result;
+                    Task<string> resultTask = response.Content.ReadAsStringAsync();
 
-                    foreach (String item in list)
+                    string result = resultTask.Result;
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        var baseClient3 = new HttpClient();
-                        baseClient3.DefaultRequestHeaders.TryAddWithoutValidation("CarfacStandardApiJWT", globals.token);
-
-                        var resultJson2 = await baseClient3.GetAsync("https://dev.carfac.com/standard/api/File/GetFileById?id=" + item);
-
-                        if (resultJson.IsSuccessStatusCode)
+                        result = result.Replace("]", "");
+                        String[] a = result.Split('}');
+                        foreach (String a2 in a)
                         {
-                            var responseContent2 = await resultJson2.Content.ReadAsStringAsync();
-                            globals.lijst.Add(responseContent2);
-                            Debug.Write(responseContent2);
+                            if (a2 != "")
+                            {
+                                String a3 = a2.Substring(1);
+
+                                String a5 = "";
+                                String a6 = "";
+
+                                String[] a4 = a3.Split(',');
+                                if (a4[4].Substring(13).Replace("\"", "") != "" && a4[1].Substring(9).Replace("\"", "") != "" && a4[3].Substring(15).Replace("\"", "") != "")
+                                {
+                                    a5 = a4[3].Substring(15).Replace("\"", "");
+                                    a6 = a4[1].Substring(9).Replace("\"", "");
+                                    globals.wagenItemLijst.Add(new wagenItem { naam = a6, nummer = a5 });
+                                }
+                            }
                         }
+                        globals.soort = "wagen";
+                        globals.wagenParameter = "nummerplaat";
+                        Navigation.PushAsync(new lijst());
                     }
-                    Navigation.PushAsync(new resultaatscherm());
+                    else
+                    {
+                        await DisplayAlert("", "Geen wagen met dit nummer gevonden.", "ok");
+                    }
                 }
+                else
+                {
+                    var loginContract = new
+                    {
+                        VinNumber = "%" + s + "%"
+                    };
+                    var content = new StringContent(JsonSerializer.Serialize(loginContract), Encoding.UTF8, "application/json");
+                    Task<HttpResponseMessage> responseTask = baseClient.PostAsync($"https://dev.carfac.com/standard/api/Vehicle/GetVehicles", content);
+                    responseTask.Wait();
+                    HttpResponseMessage response = responseTask.Result;
+                    Task<string> resultTask = response.Content.ReadAsStringAsync();
+
+                    string result = resultTask.Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        result = result.Replace("]", "");
+                        String[] a = result.Split('}');
+                        foreach (String a2 in a)
+                        {
+                            if (a2 != "")
+                            {
+                                String a3 = a2.Substring(1);
+                                Debug.Write(a3);
+
+                                String[] a4 = a3.Split(',');
+                                String a5 = a4[4].Substring(13).Replace("\"", "");
+                                String a6 = a4[1].Substring(9).Replace("\"", "");
+                                globals.wagenItemLijst.Add(new wagenItem { naam = a6, nummer = a5 });
+                            }
+                        }
+                        globals.soort = "wagen";
+                        globals.wagenParameter = "wagennummer";
+                        Navigation.PushAsync(new lijst());
+                    }
+                    else
+                    {
+                        await DisplayAlert("", "Geen wagen met dit nummer gevonden.", "ok");
+                    }
+                }
+            }
+
+           
+        }
+
+        async void toon_popup(object sender, EventArgs e)
+        {
+            string action = await DisplayActionSheet("Kies een optie", "wagennummer", "nummerplaat");
+
+            if (action == "wagennummer")
+            {
+                autobar.Placeholder = "wagennummer";
+            }
+            else if (action == "nummerplaat")
+            {
+                autobar.Placeholder = "nummerplaat";
             }
         }
     }
@@ -116,6 +157,12 @@ public static class wagen
     public static String merk;
     public static String model;
     public static String nummerplaat;
+}
+
+public class wagenItem
+{
+    public string naam { get; set; }
+    public string nummer { get; set; }
 }
 
 public class Paging

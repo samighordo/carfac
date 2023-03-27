@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Java.Util.Jar.Attributes;
 
 namespace carfacApplicatie
 {
@@ -26,87 +27,80 @@ namespace carfacApplicatie
 
         async void zoek_clicked(object sender, EventArgs e)
         {
+            globals.klantItemLijst.Clear();
+
             var baseClient = new HttpClient();
             baseClient.DefaultRequestHeaders.TryAddWithoutValidation("CarfacStandardApiJWT", globals.token);
 
             String s = klantbar.Text;
+            List<int> list = new List<int>();
+            list.Clear();
 
-            var resultJson = await baseClient.GetAsync("https://dev.carfac.com/standard/api/Customer/GetCustomerById?id=" + s);
-
-            if (resultJson.IsSuccessStatusCode)
+            if (klantbar.Text == null)
             {
-                var responseContent = await resultJson.Content.ReadAsStringAsync();
+                await DisplayAlert("", "De zoekbalk mag niet leeg zijn.", "ok");
+            }
+            else
+            {
+                for (int i = 1; i <= 100; i++)
+                {
+                    if (i.ToString().Contains(s))
+                    {
+                        list.Add(i);
+                    }
+                }
 
-                String[] resultArray = responseContent.Split(',');
-
-                klant.klantnummer = resultArray[0].Substring(14);
-                klant.naam = resultArray[2].Substring(8).Replace("\"", "");
-
-                globals.soort = "klant";
-                globals.id = s;
-
-
-
-
-
-
-
-                var baseClient2 = new HttpClient();
                 var loginContract = new
                 {
-                    Type = "Customer",
-                    Id = globals.id,
-                    Paging = new Paging { StartAtRecord = 1, NumberOfRecords = 100 }
+                    CustomerIdList = list
                 };
-
-
                 var content = new StringContent(JsonSerializer.Serialize(loginContract), Encoding.UTF8, "application/json");
-                Task<HttpResponseMessage> responseTask = baseClient.PostAsync($"https://dev.carfac.com/standard/api/File/GetFileList", content);
+                Task<HttpResponseMessage> responseTask = baseClient.PostAsync($"https://dev.carfac.com/standard/api/Customer/GetCustomers", content);
                 responseTask.Wait();
                 HttpResponseMessage response = responseTask.Result;
                 Task<string> resultTask = response.Content.ReadAsStringAsync();
-                resultTask.Wait();
+
                 string result = resultTask.Result;
 
-                Debug.Write(result);
-
-                List<string> list = new List<string>();
-
-                if (result != null && result != "\"There was an internal server error: .\"")
+                if (response.IsSuccessStatusCode)
                 {
-                    globals.lijst.Clear();
-                    String[] array1 = result.Split('[');
-                    String[] array2 = array1[1].Split('{');
-                    for (int i = 1; i < array2.Length; i++)
+                    result = result.Replace("]", "");
+                    String[] a = result.Split('}');
+                    foreach (String a2 in a)
                     {
-                        String[] array3 = array2[i].Split(',');
-                        String idString = array3[0].Substring(9);
-                        list.Add(idString);
-                    }
-
-                    foreach (String item in list)
-                    {
-                        var baseClient3 = new HttpClient();
-                        baseClient3.DefaultRequestHeaders.TryAddWithoutValidation("CarfacStandardApiJWT", globals.token);
-
-                        var resultJson2 = await baseClient3.GetAsync("https://dev.carfac.com/standard/api/File/GetFileById?id=" + item);
-
-                        if (resultJson.IsSuccessStatusCode)
+                        if (a2 != "")
                         {
-                            var responseContent2 = await resultJson2.Content.ReadAsStringAsync();
-                            globals.lijst.Add(responseContent2);
-                            Debug.Write(responseContent2);
+                            String a3 = a2.Substring(1);
+                            Debug.WriteLine(a3);
+
+                            String[] a4 = a3.Split(',');
+                            String a5 = a4[2].Substring(8).Replace("\"", "");
+                            String a6 = a4[0].Substring(14).Replace("\"", "");
+                            globals.klantItemLijst.Add(new klantItem { naam = a5, nummer = "id = " + a6 });
                         }
                     }
-                    Navigation.PushAsync(new resultaatscherm());
+                    globals.soort = "klant";
+                    Navigation.PushAsync(new lijst());
+                }
+                else
+                {
+                    await DisplayAlert("", "Geen klant met dit nummer gevonden.", "ok");
                 }
             }
+
+            
         }
     }
 }
 
 public static class klant
 {
-    public static String klantnummer;
     public static String naam;
+    public static String klantnummer;
+}
+
+public class klantItem
+{
+    public string naam { get; set; }
+    public string nummer { get; set; }
 }

@@ -62,4 +62,13 @@ public static class globals
     public static int lijstlengte;
     public static String fotoBeschrijving;
     public static byte[] bytes;
+    public static List<String> gefilterdeResultatenLijst = new List<string>();
+
+    public static List<klantItem> klantItemLijst = new List<klantItem>();
+    public static List<wagenItem> wagenItemLijst = new List<wagenItem>();
+    public static List<werkorderItem> werkorderItemLijst = new List<werkorderItem>();
+    public static List<artikelItem> artikelItemLijst = new List<artikelItem>();
+
+    public static String wagenParameter;
+
 }

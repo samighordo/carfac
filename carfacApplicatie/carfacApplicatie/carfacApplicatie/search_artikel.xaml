@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <StackLayout>
 
-            <SearchBar x:Name="artikelbar" Placeholder="Artikelnummer" BackgroundColor="white" Margin="20" Keyboard="Numeric"></SearchBar>
+            <SearchBar x:Name="artikelbar" Placeholder="Beschrijving" BackgroundColor="white" Margin="20"></SearchBar>
 
             <Button
                 Text="zoek"

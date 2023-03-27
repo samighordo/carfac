@@ -5,18 +5,18 @@
              BackgroundImageSource="achtergrond4">
     <ContentPage.Content>
         <StackLayout>
-            
+
 
             <ListView
-                x:Name="resultaatLijst"></ListView>
-            
-            <Button
-                Text="verder"
-                Clicked="resultaat"
-                Margin="50,20,50,20"
-                BackgroundColor="White"
-                BorderColor="Black"
-                BorderWidth="1.5"></Button>
+                x:Name="resultaatLijst" ItemTapped="item_clicked">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding naam}"
+                                  Detail="{Binding nummer}"
+                                  ></TextCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

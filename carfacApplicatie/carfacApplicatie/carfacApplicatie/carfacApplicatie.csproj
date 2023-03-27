@@ -21,7 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Plugin.Toast" Version="2.2.0" />
     <PackageReference Include="RestSharp" Version="108.0.3" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
     <PackageReference Include="Xamarin.MediaGallery" Version="2.2.1" />

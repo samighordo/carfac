@@ -6,7 +6,21 @@
     <ContentPage.Content>
         <StackLayout>
 
-            <SearchBar x:Name="autobar" Placeholder="wagennummer" BackgroundColor="white" Margin="20" Keyboard="Numeric"></SearchBar>
+            <FlexLayout>
+
+                <SearchBar x:Name="autobar" Placeholder="wagennummer" BackgroundColor="white" Margin="20,20,10,20" Keyboard="Numeric"></SearchBar>
+
+                <Image Source="dropdown2.png" WidthRequest="80" Margin="0,0,10,0">
+
+                    <Image.GestureRecognizers>
+
+                        <TapGestureRecognizer Tapped="toon_popup"></TapGestureRecognizer>
+
+                    </Image.GestureRecognizers>
+
+                </Image>
+
+            </FlexLayout>
 
             <Button
                 Text="zoek"

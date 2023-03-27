@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Java.Util;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -29,81 +30,59 @@ namespace carfacApplicatie
             var baseClient = new HttpClient();
             baseClient.DefaultRequestHeaders.TryAddWithoutValidation("CarfacStandardApiJWT", globals.token);
 
+            globals.artikelItemLijst.Clear();
+
             String s = artikelbar.Text;
 
-            var resultJson = await baseClient.GetAsync("https://dev.carfac.com/standard/api/Part/GetPartById?id=" + s);
-
-            if (resultJson.IsSuccessStatusCode)
+            if (artikelbar.Text == null)
             {
-                var responseContent = await resultJson.Content.ReadAsStringAsync();
-
-                String[] resultArray = responseContent.Split(',');
-
-                artikel.artikelnummer = resultArray[0].Substring(11).Replace("\"", "");
-                artikel.merk = resultArray[8].Substring(10).Replace("\"", "");
-                artikel.omschrijving = resultArray[2].Substring(14).Replace("\"", "");
-
-                globals.soort = "artikel";
-                globals.id = s;
-
-                Debug.Write(responseContent);
-
-
-
-
-
-
-
-                var baseClient2 = new HttpClient();
+                await DisplayAlert("", "De zoekbalk mag niet leeg zijn.", "ok");
+            }
+            else
+            {
                 var loginContract = new
                 {
-                    Type = "Part",
-                    Id = globals.id,
-                    Paging = new Paging { StartAtRecord = 1, NumberOfRecords = 100 }
+                    description = "%" + s + "%"
                 };
-
-
                 var content = new StringContent(JsonSerializer.Serialize(loginContract), Encoding.UTF8, "application/json");
-                Task<HttpResponseMessage> responseTask = baseClient.PostAsync($"https://dev.carfac.com/standard/api/File/GetFileList", content);
+                Task<HttpResponseMessage> responseTask = baseClient.PostAsync($"https://dev.carfac.com/standard/api/Part/GetParts", content);
                 responseTask.Wait();
                 HttpResponseMessage response = responseTask.Result;
                 Task<string> resultTask = response.Content.ReadAsStringAsync();
-                resultTask.Wait();
-                string result = resultTask.Result;
 
-                Debug.Write(result);
+                String result = resultTask.Result;
 
-                List<string> list = new List<string>();
-
-                if (result != null && result != "\"There was an internal server error: .\"")
+                if (response.IsSuccessStatusCode)
                 {
-                    globals.lijst.Clear();
-                    String[] array1 = result.Split('[');
-                    String[] array2 = array1[1].Split('{');
-                    for (int i = 1; i < array2.Length; i++)
+                    result = result.Replace("]", "").Trim();
+                    String[] a = result.Split('}');
+
+                    foreach (String str in a)
                     {
-                        String[] array3 = array2[i].Split(',');
-                        String idString = array3[0].Substring(9);
-                        list.Add(idString);
-                    }
-
-                    foreach (String item in list)
-                    {
-                        var baseClient3 = new HttpClient();
-                        baseClient3.DefaultRequestHeaders.TryAddWithoutValidation("CarfacStandardApiJWT", globals.token);
-
-                        var resultJson2 = await baseClient3.GetAsync("https://dev.carfac.com/standard/api/File/GetFileById?id=" + item);
-
-                        if (resultJson.IsSuccessStatusCode)
+                        if (str != "")
                         {
-                            var responseContent2 = await resultJson2.Content.ReadAsStringAsync();
-                            globals.lijst.Add(responseContent2);
-                            Debug.Write(responseContent2);
+                            String ss = str.Substring(1);
+                            String[] arr = ss.Split(',');
+                            Debug.Write(str);
+
+                            String artikelnummer = arr[1].Substring(12).Replace("\"", "");
+                            String omschrijving = arr[2].Substring(15).Replace("\"", "");
+                            globals.artikelItemLijst.Add(new artikelItem { naam = omschrijving, nummer = "nr = " + artikelnummer });
                         }
                     }
-                    Navigation.PushAsync(new resultaatscherm());
+
+
+                    globals.soort = "artikel";
+                    Navigation.PushAsync(new lijst());
+                }
+                else
+                {
+                    await DisplayAlert("", "Geen artikel met deze beschrijving gevonden.", "ok");
                 }
             }
+
+
+           
         }
     }
 }
@@ -114,4 +93,10 @@ public static class artikel
     public static String artikelnummer;
     public static String merk;
     public static String omschrijving;
+}
+
+public class artikelItem
+{
+    public string naam { get; set; }
+    public string nummer { get; set; }
 }
