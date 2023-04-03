@@ -43,7 +43,6 @@ namespace carfacApplicatie
                 default:
                     break;
             }
-            pickerLijst.SelectedIndexChanged += pickerLijstKeuzeVeranderd;
         }
 
         public async void item_clicked(object sender, ItemTappedEventArgs e)
@@ -426,11 +425,11 @@ namespace carfacApplicatie
             }
         }
 
-        public void pickerLijstKeuzeVeranderd(object sender, EventArgs e)
+        async void toon_popup(object sender, EventArgs e)
         {
-            string selectedItem = pickerLijst.SelectedItem.ToString();
-            
-            if(selectedItem == "alfabetisch")
+            string action = await DisplayActionSheet("sorteer", "alfabetisch", "numeriek");
+
+            if (action == "alfabetisch")
             {
                 switch (globals.soort)
                 {
@@ -454,7 +453,7 @@ namespace carfacApplicatie
                         break;
                 }
             }
-            else if(selectedItem == "numeriek")
+            else if (action == "numeriek")
             {
                 switch (globals.soort)
                 {
@@ -479,5 +478,7 @@ namespace carfacApplicatie
                 }
             }
         }
+
+       
     }
 }

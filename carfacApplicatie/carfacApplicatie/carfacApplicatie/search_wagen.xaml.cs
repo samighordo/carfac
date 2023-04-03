@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static Android.Resource;
+using Color = Xamarin.Forms.Color;
 using String = System.String;
 
 namespace carfacApplicatie
@@ -17,10 +18,13 @@ namespace carfacApplicatie
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class search_wagen : ContentPage
     {
+
         public search_wagen()
         {
             InitializeComponent();
 
+            var navigationPage = Application.Current.MainPage as NavigationPage;
+            navigationPage.BarBackgroundColor = Color.FromHex("#0081AB");
 
             autobar.SearchButtonPressed += (s, e) =>
             {
@@ -103,6 +107,7 @@ namespace carfacApplicatie
                     Task<string> resultTask = response.Content.ReadAsStringAsync();
 
                     string result = resultTask.Result;
+                    Debug.Write(result);
 
                     if (response.IsSuccessStatusCode)
                     {

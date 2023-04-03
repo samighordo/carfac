@@ -22,6 +22,9 @@ namespace carfacApplicatie
             {
                 zoek_clicked(s, e);
             };
+
+            var navigationPage = Application.Current.MainPage as NavigationPage;
+            navigationPage.BarBackgroundColor = Color.FromHex("#0081AB");
         }
 
         async void zoek_clicked(object sender, EventArgs e)
