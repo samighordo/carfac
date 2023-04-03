@@ -54,6 +54,7 @@ public static class globals
     public static String token;
     public static String soort;
     public static String id;
+    public static String fotoId;
     public static ImageSource source;
     public static String imageBase64;
     public static List<string> lijst = new List<string>();

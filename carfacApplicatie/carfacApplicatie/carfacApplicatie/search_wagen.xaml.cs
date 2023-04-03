@@ -137,11 +137,11 @@ namespace carfacApplicatie
 
         async void toon_popup(object sender, EventArgs e)
         {
-            string action = await DisplayActionSheet("Kies een optie", "wagennummer", "nummerplaat");
+            string action = await DisplayActionSheet("Kies een optie", "Vinnummer", "nummerplaat");
 
-            if (action == "wagennummer")
+            if (action == "Vinnummer")
             {
-                autobar.Placeholder = "wagennummer";
+                autobar.Placeholder = "Vinnummer";
             }
             else if (action == "nummerplaat")
             {

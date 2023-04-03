@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 using static Android.Resource;
 
@@ -24,20 +25,25 @@ namespace carfacApplicatie
             switch (globals.soort)
             {
                 case "wagen":
+                    globals.wagenItemLijst.Sort((s1,s2) => s1.naam.CompareTo(s2.naam));
                     resultaatLijst.ItemsSource = globals.wagenItemLijst;
                     break;
                 case "klant":
+                    globals.klantItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
                     resultaatLijst.ItemsSource = globals.klantItemLijst;
                     break;
                 case "artikel":
+                    globals.artikelItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
                     resultaatLijst.ItemsSource = globals.artikelItemLijst;
                     break;
                 case "werkorder":
+                    globals.werkorderItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
                     resultaatLijst.ItemsSource = globals.werkorderItemLijst;
                     break;
                 default:
                     break;
             }
+            pickerLijst.SelectedIndexChanged += pickerLijstKeuzeVeranderd;
         }
 
         public async void item_clicked(object sender, ItemTappedEventArgs e)
@@ -417,6 +423,60 @@ namespace carfacApplicatie
 
                 default:
                     break;
+            }
+        }
+
+        public void pickerLijstKeuzeVeranderd(object sender, EventArgs e)
+        {
+            string selectedItem = pickerLijst.SelectedItem.ToString();
+            
+            if(selectedItem == "alfabetisch")
+            {
+                switch (globals.soort)
+                {
+                    case "wagen":
+                        globals.wagenItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
+                        resultaatLijst.ItemsSource = globals.wagenItemLijst;
+                        break;
+                    case "klant":
+                        globals.klantItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
+                        resultaatLijst.ItemsSource = globals.klantItemLijst;
+                        break;
+                    case "artikel":
+                        globals.artikelItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
+                        resultaatLijst.ItemsSource = globals.artikelItemLijst;
+                        break;
+                    case "werkorder":
+                        globals.werkorderItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
+                        resultaatLijst.ItemsSource = globals.werkorderItemLijst;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if(selectedItem == "numeriek")
+            {
+                switch (globals.soort)
+                {
+                    case "wagen":
+                        globals.wagenItemLijst.Sort((s1, s2) => s1.nummer.CompareTo(s2.nummer));
+                        resultaatLijst.ItemsSource = globals.wagenItemLijst;
+                        break;
+                    case "klant":
+                        globals.klantItemLijst.Sort((s1, s2) => s1.nummer.CompareTo(s2.nummer));
+                        resultaatLijst.ItemsSource = globals.klantItemLijst;
+                        break;
+                    case "artikel":
+                        globals.artikelItemLijst.Sort((s1, s2) => s1.nummer.CompareTo(s2.nummer));
+                        resultaatLijst.ItemsSource = globals.artikelItemLijst;
+                        break;
+                    case "werkorder":
+                        globals.werkorderItemLijst.Sort((s1, s2) => s1.nummer.CompareTo(s2.nummer));
+                        resultaatLijst.ItemsSource = globals.werkorderItemLijst;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

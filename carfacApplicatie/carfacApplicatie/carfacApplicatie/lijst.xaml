@@ -6,6 +6,12 @@
     <ContentPage.Content>
         <StackLayout>
 
+            <Picker x:Name="pickerLijst" Title ="sorteer" HorizontalTextAlignment="End" Margin="312,0,10,0" TextColor="Black">
+                <Picker.Items>
+                    <x:String>alfabetisch</x:String>
+                    <x:String>numeriek</x:String>
+                </Picker.Items>
+            </Picker>
 
             <ListView
                 x:Name="resultaatLijst" ItemTapped="item_clicked">

@@ -74,9 +74,11 @@ namespace carfacApplicatie
                 // dit is voor de beschrijving te verkrijgen
                 String b = array[2].Substring(18).Replace("\"", "");
 
+                // dit is voor het id te verkrijgen
+                string id = array[0].Substring(10);
 
 
-                list.Add(new ItemFoto { beschrijving = b, ImageSource = imagesource, bytes = imageData });
+                list.Add(new ItemFoto { beschrijving = b, ImageSource = imagesource, bytes = imageData, id = id });
             }
 
 			for(int j = i; j < globals.lijst.Count; j++)
@@ -93,9 +95,10 @@ namespace carfacApplicatie
                 // dit is voor de beschrijving te verkrijgen
                 String b = array[2].Substring(18).Replace("\"", "");
 
+                // dit is voor het id te verkrijgen
+                string id = array[0].Substring(10);
 
-
-                list2.Add(new ItemFoto { beschrijving = b, ImageSource = imagesource, bytes = imageData });
+                list2.Add(new ItemFoto { beschrijving = b, ImageSource = imagesource, bytes = imageData, id = id });
             }	
 
 			afbeeldinglijst.ItemsSource = list;
@@ -156,6 +159,7 @@ namespace carfacApplicatie
 				globals.bytes = itemfoto.bytes;
 				globals.source = itemfoto.ImageSource;
 				globals.fotoBeschrijving = itemfoto.beschrijving;
+                globals.fotoId = itemfoto.id;
             }
 
             Navigation.PushAsync(new foto());
@@ -175,5 +179,7 @@ namespace carfacApplicatie
         {
             DisplayAlert("Delete Context Action", " delete context action", "OK");
         }
+
+        
     }
 }

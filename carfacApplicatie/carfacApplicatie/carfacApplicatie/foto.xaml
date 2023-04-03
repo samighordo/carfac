@@ -8,7 +8,11 @@
             <FlexLayout HeightRequest="100">
 
                 <Image Source="delete.png"
-                       Margin="10"></Image>
+                       Margin="10">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="verwijder_clicked"/>
+                    </Image.GestureRecognizers>
+                </Image>
                 <Image Source="bewerk.png"
                        Margin="10">
                     <Image.GestureRecognizers>
