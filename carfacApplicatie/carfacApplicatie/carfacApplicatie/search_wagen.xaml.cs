@@ -43,7 +43,7 @@ namespace carfacApplicatie
             String s = autobar.Text;
             String str = "";
 
-           if(autobar.Text == null)
+           if(autobar.Text == "")
             {
                 await DisplayAlert("", "De zoekbalk mag niet leeg zijn.", "ok");
             }

@@ -5,7 +5,9 @@
     <ContentPage.Content>
         <StackLayout>
 
-            <SearchBar x:Name="werkorderbar" Placeholder="Werkordernummer" BackgroundColor="white" Margin="20" Keyboard="Numeric"></SearchBar>
+            <Frame BorderColor="Black" HorizontalOptions="Center" HeightRequest="25" Margin="10" HasShadow="True">
+                <SearchBar x:Name="werkorderbar" Placeholder="Werkordernummer" BackgroundColor="white" Keyboard="Numeric"></SearchBar>
+            </Frame>
 
             <Button
                 Text="zoek"

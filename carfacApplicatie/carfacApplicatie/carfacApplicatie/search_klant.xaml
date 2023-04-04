@@ -5,7 +5,10 @@
     <ContentPage.Content>
         <StackLayout>
 
-            <SearchBar x:Name="klantbar" Placeholder="Klantnummer" BackgroundColor="white" Margin="20" Keyboard="Numeric"></SearchBar>
+            <Frame BorderColor="Black" HorizontalOptions="Center" HeightRequest="25" Margin="10" HasShadow="True">
+                <SearchBar x:Name="klantbar" Placeholder="Klantnummer" BackgroundColor="white" Keyboard="Numeric"></SearchBar>
+            </Frame>
+            
 
             <Button
                 Text="zoek"
