@@ -5,32 +5,44 @@
     
     <ContentPage.Content>
         <StackLayout VerticalOptions="Start">
-            <FlexLayout HeightRequest="100">
 
+
+            <Grid HeightRequest="85">
                 <Image Source="delete.png"
-                       Margin="10">
+                       Margin="10"
+                       Grid.Row="0"
+                       Grid.Column="0">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="verwijder_clicked"/>
                     </Image.GestureRecognizers>
                 </Image>
                 <Image Source="bewerk.png"
-                       Margin="10">
+                       Margin="10"
+                       Grid.Row="0"
+                       Grid.Column="1">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="bewerk_clicked"/>
                     </Image.GestureRecognizers>
                 </Image>
                 <Image Source="download.png"
-                       Margin="10">
+                       Margin="10"
+                       Grid.Row="0"
+                       Grid.Column="2">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="save_clicked"/>
                     </Image.GestureRecognizers>
                 </Image>
-                
-            </FlexLayout>
+            </Grid>
 
-            <Image x:Name="photo" ></Image>
+            <Image x:Name="photo" HeightRequest="440"></Image>
 
-            <Editor x:Name="editorBeschrijving" Placeholder="beschrijving" Margin="10"></Editor>
+            <Label x:Name="beschrijving" Text="beschrijving" TextColor="#0081AB" Margin="30,10,10,0" FontSize="18"></Label>
+            
+            <Editor x:Name="editorBeschrijving" Placeholder="beschrijving" Margin="30,0,10,10"></Editor>
+
+            <Label x:Name="datumUpload" Margin="30,0,10,0" TextColor="#0081AB" FontSize="18" Text="datum upload"></Label>
+
+            <Label x:Name="datum" Margin="30,0,10,0" TextColor="Black" FontSize="18"></Label>
 
             <Button x:Name="uploadbutton" Text="upload" Clicked="upload_clicked" IsVisible="false" Margin="50,20,50,20"
                 BackgroundColor="White"

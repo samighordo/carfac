@@ -18,7 +18,11 @@ namespace carfacApplicatie
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class resultaatscherm : ContentPage
 	{
-		public resultaatscherm()
+
+        List<ItemFoto> list;
+        List<ItemFoto> list2;
+
+        public resultaatscherm()
 		{
 			InitializeComponent();
 
@@ -54,9 +58,8 @@ namespace carfacApplicatie
 				tweede.Text ="datum = " + werkorder.datum;
 			}
 
-			List<ItemFoto> list = new List<ItemFoto>();
-            List<ItemFoto> list2 = new List<ItemFoto>();
-
+			this.list = new List<ItemFoto>();
+            this.list2 = new List<ItemFoto>();
 
             int i = (globals.lijst.Count / 2);
 
@@ -77,8 +80,11 @@ namespace carfacApplicatie
                 // dit is voor het id te verkrijgen
                 string id = array[0].Substring(10);
 
+                // dit is voor de datum te verkrijgen
+                String c = array[7];
+                c = c.Substring(16, 10);
 
-                list.Add(new ItemFoto { beschrijving = b, ImageSource = imagesource, bytes = imageData, id = id });
+                this.list.Add(new ItemFoto { beschrijving = b, ImageSource = imagesource, bytes = imageData, id = id, datum = c });
             }
 
 			for(int j = i; j < globals.lijst.Count; j++)
@@ -91,14 +97,17 @@ namespace carfacApplicatie
                 byte[] imageData = Convert.FromBase64String(s);
                 ImageSource imagesource = ImageSource.FromStream(() => new MemoryStream(imageData));
 
-
                 // dit is voor de beschrijving te verkrijgen
                 String b = array[2].Substring(18).Replace("\"", "");
 
                 // dit is voor het id te verkrijgen
                 string id = array[0].Substring(10);
 
-                list2.Add(new ItemFoto { beschrijving = b, ImageSource = imagesource, bytes = imageData, id = id });
+                // dit is voor de datum te verkrijgen
+                String c = array[7];
+                c = c.Substring(16, 10);
+
+                this.list2.Add(new ItemFoto { beschrijving = b, ImageSource = imagesource, bytes = imageData, id = id, datum = c });
             }	
 
 			afbeeldinglijst.ItemsSource = list;
@@ -107,7 +116,7 @@ namespace carfacApplicatie
 
         }
 
-		async Task kiesfoto(Object sender, EventArgs e)
+        async Task kiesfoto(Object sender, EventArgs e)
 		{
 			var result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
 			{
@@ -160,6 +169,7 @@ namespace carfacApplicatie
 				globals.source = itemfoto.ImageSource;
 				globals.fotoBeschrijving = itemfoto.beschrijving;
                 globals.fotoId = itemfoto.id;
+                globals.fotoDatum = itemfoto.datum;
             }
 
             Navigation.PushAsync(new foto());
@@ -180,6 +190,53 @@ namespace carfacApplicatie
             DisplayAlert("Delete Context Action", " delete context action", "OK");
         }
 
-        
+        async void toon_popup2(object sender, EventArgs e)
+        {
+            filterPicker.Focus();
+        }
+
+        async void kiesPickerOptie(object sender, EventArgs e)
+        {
+            if(filterPicker.SelectedItem == "beschrijving")
+            {
+                List<ItemFoto> lijst = this.list;
+                List<ItemFoto> lijst2 = this.list2;
+
+                List<ItemFoto> lijst3 = new List<ItemFoto>();
+                List<ItemFoto> lijst4 = new List<ItemFoto>();
+
+                string result = await DisplayPromptAsync("beschrijving", "");
+
+                foreach (ItemFoto item in lijst)
+                {
+
+                    if (item.beschrijving.Contains(result))
+                    {
+                        lijst3.Add(item);
+                    }
+                }
+                foreach (ItemFoto item in lijst2)
+                {
+
+                    if (item.beschrijving.Contains(result))
+                    {
+                        lijst4.Add(item);
+                    }
+                }
+
+                if (lijst3.Count == 0 && lijst4.Count != 0)
+                {
+                    lijst3.Add(lijst4.Last());
+                    lijst4.RemoveAt(lijst4.Count - 1);
+                }
+
+                afbeeldinglijst.ItemsSource = null;
+                afbeeldinglijst.ItemsSource = lijst3;
+
+                afbeeldinglijst2.ItemsSource = null;
+                afbeeldinglijst2.ItemsSource = lijst4;
+            }
+            filterPicker.SelectedIndex = 2;
+        }
     }
 }

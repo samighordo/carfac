@@ -44,6 +44,7 @@ namespace carfacApplicatie
             InitializeComponent();
             photo.Source = globals.source;
             editorBeschrijving.Placeholder = "beschrijving";
+            datum.Text = globals.fotoDatum;
 
             if (globals.fotoBeschrijving != null)
             {
@@ -338,7 +339,7 @@ namespace carfacApplicatie
 
                 string id = globals.fotoId;
 
-                var resultJson = await baseClient.GetAsync("https://dev.carfac.com/standard/api/File/DeleteFileById?id=" + id);
+                var resultJson = await baseClient.DeleteAsync("https://dev.carfac.com/standard/api/File/DeleteFileById?id=" + id);
 
                 if (resultJson.IsSuccessStatusCode)
                 {

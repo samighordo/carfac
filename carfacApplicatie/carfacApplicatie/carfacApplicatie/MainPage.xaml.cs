@@ -62,6 +62,7 @@ public static class globals
 
     public static int lijstlengte;
     public static String fotoBeschrijving;
+    public static String fotoDatum;
     public static byte[] bytes;
     public static List<String> gefilterdeResultatenLijst = new List<string>();
 

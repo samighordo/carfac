@@ -20803,28 +20803,28 @@ namespace carfacApplicatie.Droid
 			public const int dropdown3 = 2131165304;
 			
 			// aapt resource value: 0x7F070079
-			public const int ic_arrow_down_24dp = 2131165305;
+			public const int filter = 2131165305;
 			
 			// aapt resource value: 0x7F07007A
-			public const int ic_clock_black_24dp = 2131165306;
+			public const int ic_arrow_down_24dp = 2131165306;
 			
 			// aapt resource value: 0x7F07007B
-			public const int ic_keyboard_black_24dp = 2131165307;
+			public const int ic_clock_black_24dp = 2131165307;
 			
 			// aapt resource value: 0x7F07007C
-			public const int ic_mtrl_checked_circle = 2131165308;
+			public const int ic_keyboard_black_24dp = 2131165308;
 			
 			// aapt resource value: 0x7F07007D
-			public const int ic_mtrl_chip_checked_black = 2131165309;
+			public const int ic_mtrl_checked_circle = 2131165309;
 			
 			// aapt resource value: 0x7F07007E
-			public const int ic_mtrl_chip_checked_circle = 2131165310;
+			public const int ic_mtrl_chip_checked_black = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
-			public const int ic_mtrl_chip_close_circle = 2131165311;
+			public const int ic_mtrl_chip_checked_circle = 2131165311;
 			
 			// aapt resource value: 0x7F070080
-			public const int kat = 2131165312;
+			public const int ic_mtrl_chip_close_circle = 2131165312;
 			
 			// aapt resource value: 0x7F070081
 			public const int material_cursor_drawable = 2131165313;

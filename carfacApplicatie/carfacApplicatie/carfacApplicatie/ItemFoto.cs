@@ -10,7 +10,7 @@ namespace carfacApplicatie
         public string beschrijving { get; set; }
         public ImageSource ImageSource { get; set; }
         public byte[] bytes { get; set; }
-
         public string id { get; set; }
+        public string datum { get; set; }
     }
 }

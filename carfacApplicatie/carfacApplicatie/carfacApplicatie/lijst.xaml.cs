@@ -427,7 +427,7 @@ namespace carfacApplicatie
 
         async void toon_popup(object sender, EventArgs e)
         {
-            string action = await DisplayActionSheet("sorteer", "alfabetisch", "numeriek");
+            string action = await DisplayActionSheet("sorteer", "numeriek", "alfabetisch");
 
             if (action == "alfabetisch")
             {
@@ -435,18 +435,22 @@ namespace carfacApplicatie
                 {
                     case "wagen":
                         globals.wagenItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
+                        resultaatLijst.ItemsSource = null;
                         resultaatLijst.ItemsSource = globals.wagenItemLijst;
                         break;
                     case "klant":
                         globals.klantItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
+                        resultaatLijst.ItemsSource = null;
                         resultaatLijst.ItemsSource = globals.klantItemLijst;
                         break;
                     case "artikel":
                         globals.artikelItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
+                        resultaatLijst.ItemsSource = null;
                         resultaatLijst.ItemsSource = globals.artikelItemLijst;
                         break;
                     case "werkorder":
                         globals.werkorderItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
+                        resultaatLijst.ItemsSource = null;
                         resultaatLijst.ItemsSource = globals.werkorderItemLijst;
                         break;
                     default:
@@ -459,18 +463,22 @@ namespace carfacApplicatie
                 {
                     case "wagen":
                         globals.wagenItemLijst.Sort((s1, s2) => s1.nummer.CompareTo(s2.nummer));
+                        resultaatLijst.ItemsSource = null;
                         resultaatLijst.ItemsSource = globals.wagenItemLijst;
                         break;
                     case "klant":
                         globals.klantItemLijst.Sort((s1, s2) => s1.nummer.CompareTo(s2.nummer));
+                        resultaatLijst.ItemsSource = null;
                         resultaatLijst.ItemsSource = globals.klantItemLijst;
                         break;
                     case "artikel":
                         globals.artikelItemLijst.Sort((s1, s2) => s1.nummer.CompareTo(s2.nummer));
+                        resultaatLijst.ItemsSource = null;
                         resultaatLijst.ItemsSource = globals.artikelItemLijst;
                         break;
                     case "werkorder":
                         globals.werkorderItemLijst.Sort((s1, s2) => s1.nummer.CompareTo(s2.nummer));
+                        resultaatLijst.ItemsSource = null;
                         resultaatLijst.ItemsSource = globals.werkorderItemLijst;
                         break;
                     default:

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="carfacApplicatie.resultaatscherm">
     <ContentPage.Content>
+
         <StackLayout>
 
             <ScrollView>
@@ -20,8 +21,23 @@
                         </StackLayout>
                     </Frame>
 
+                    <Picker x:Name="filterPicker" IsVisible="False" Title="filter" TitleColor="#0081AB" SelectedIndexChanged="kiesPickerOptie">
+                        <Picker.Items>
+                            <x:String>beschrijving</x:String>
+                            <x:String> </x:String>
+                        </Picker.Items>
+                    </Picker>
 
+                    <Grid>
+                        <Image Source="filter.png" HeightRequest="60" HorizontalOptions="End" Margin="0,0,20,0" Grid.Row="0" Grid.Column="4">
+                            <Image.GestureRecognizers>
 
+                                <TapGestureRecognizer Tapped="toon_popup2"></TapGestureRecognizer>
+
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                    </Grid>
                     <FlexLayout>
 
                         <ListView x:Name="afbeeldinglijst" HasUnevenRows="True" SeparatorVisibility="None" ItemTapped="afbeelding_clicked" Margin="0">
@@ -50,14 +66,12 @@
 
                     </FlexLayout>
 
-
-
                 </StackLayout>
 
             </ScrollView>
 
             <Image Source="afbeeldingknop"
-                       WidthRequest="150"
+                       WidthRequest="120"
                        VerticalOptions="End" Margin="0,0,0,20">
 
                 <Image.GestureRecognizers>
@@ -68,11 +82,11 @@
 
             </Image>
 
+
+
         </StackLayout>
 
 
     </ContentPage.Content>
 
-    
 </ContentPage>
-
