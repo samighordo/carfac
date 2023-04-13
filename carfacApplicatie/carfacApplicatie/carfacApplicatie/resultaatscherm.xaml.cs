@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -18,7 +19,6 @@ namespace carfacApplicatie
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class resultaatscherm : ContentPage
 	{
-
         List<ItemFoto> list;
         List<ItemFoto> list2;
 
@@ -26,7 +26,7 @@ namespace carfacApplicatie
 		{
 			InitializeComponent();
 
-			if(globals.soort == "wagen")
+            if (globals.soort == "wagen")
 			{
                 eerste.Text = wagen.model;
                 tweede.Text = "merk = " + wagen.merk;
@@ -158,21 +158,12 @@ namespace carfacApplicatie
 
         }
 
-        private void afbeelding_clicked(object sender, ItemTappedEventArgs e)
+        public void afbeelding_clicked(object sender, ItemTappedEventArgs e)
         {
-            
             ItemFoto itemfoto = e.Item as ItemFoto;
 
-            if (itemfoto != null)
-            {
-				globals.bytes = itemfoto.bytes;
-				globals.source = itemfoto.ImageSource;
-				globals.fotoBeschrijving = itemfoto.beschrijving;
-                globals.fotoId = itemfoto.id;
-                globals.fotoDatum = itemfoto.datum;
-            }
+            afbeeldinglijst.
 
-            Navigation.PushAsync(new foto());
         }
 
 		async void toon_popup(object sender, EventArgs e)
@@ -238,5 +229,7 @@ namespace carfacApplicatie
             }
             filterPicker.SelectedIndex = 2;
         }
+
+        
     }
 }

@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="carfacApplicatie.resultaatscherm">
+             x:Class="carfacApplicatie.resultaatscherm"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ContentPage.Content>
 
         <StackLayout>
@@ -45,7 +46,8 @@
                                 <DataTemplate>
                                     <ViewCell>
                                         <Image Source="{Binding ImageSource}" Aspect="AspectFit" WidthRequest="300" HeightRequest="200" Margin="10"
-                                           AutomationProperties.Name="{Binding beschrijving}" >
+                                           AutomationProperties.Name="{Binding beschrijving}" 
+                                               >
                                         </Image>
                                     </ViewCell>
                                 </DataTemplate>
@@ -57,7 +59,7 @@
                                 <DataTemplate>
                                     <ViewCell>
                                         <Image Source="{Binding ImageSource}" Aspect="AspectFit" WidthRequest="300" HeightRequest="200" Margin="10"
-                                           AutomationProperties.Name="{Binding beschrijving}" >
+                                           AutomationProperties.Name="{Binding beschrijving}">
                                         </Image>
                                     </ViewCell>
                                 </DataTemplate>

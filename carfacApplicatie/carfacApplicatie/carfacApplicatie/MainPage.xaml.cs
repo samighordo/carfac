@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Android.Net;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -72,5 +73,6 @@ public static class globals
     public static List<artikelItem> artikelItemLijst = new List<artikelItem>();
 
     public static String wagenParameter;
+    public static Boolean selecteerMeerdereFotos = false;
 
 }
