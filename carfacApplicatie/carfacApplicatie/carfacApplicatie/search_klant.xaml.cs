@@ -45,6 +45,7 @@ namespace carfacApplicatie
             }
             else
             {
+                indicator.IsVisible = true;
                 for (int i = 1; i <= 100; i++)
                 {
                     if (i.ToString().Contains(s))
@@ -83,10 +84,12 @@ namespace carfacApplicatie
                         }
                     }
                     globals.soort = "klant";
+                    indicator.IsVisible= false;
                     Navigation.PushAsync(new lijst());
                 }
                 else
                 {
+                    indicator.IsVisible = false;
                     await DisplayAlert("", "Geen klant met dit nummer gevonden.", "ok");
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using Android.Net;
+using carfacApplicatie;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,5 @@ public static class globals
     public static List<artikelItem> artikelItemLijst = new List<artikelItem>();
 
     public static String wagenParameter;
-    public static Boolean selecteerMeerdereFotos = false;
-
+    public static List<VideoHelperKlasse> videoHelperLijst = new List<VideoHelperKlasse>();
 }

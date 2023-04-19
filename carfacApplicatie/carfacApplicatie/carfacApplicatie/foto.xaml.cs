@@ -33,6 +33,7 @@ using Java.Net;
 using System.Text.Json.Serialization;
 using Xamarin.Essentials;
 using static Android.Resource;
+using static Android.Provider.ContactsContract.CommonDataKinds;
 
 namespace carfacApplicatie
 {
@@ -42,6 +43,8 @@ namespace carfacApplicatie
         public foto()
         {
             InitializeComponent();
+            relatief.RaiseChild(indicator);
+
             photo.Source = globals.source;
             editorBeschrijving.Placeholder = "beschrijving";
             datum.Text = globals.fotoDatum;
@@ -92,6 +95,8 @@ namespace carfacApplicatie
                 }
                 else
                 {
+                    indicator.IsVisible = true;
+
                     var loginContract = new
                     {
                         Type = soort,
@@ -159,23 +164,27 @@ namespace carfacApplicatie
                                 }
                                 else
                                 {
+                                    indicator.IsVisible= false;
                                     await DisplayAlert("", "Er ging iets fout, probeer opnieuw.", "ok");
                                 }
                             }
                             globals.fotodoel = "";
                             uploadbutton.IsVisible = false;
+                            indicator.IsVisible = false;
                             Navigation.PushAsync(new resultaatscherm());
 
                         }
                         else
                         {
+                            indicator.IsVisible = false;
                             await DisplayAlert("", "Er ging iets fout, probeer opnieuw.", "ok");
                         }
-
+                        indicator.IsVisible = false;
                         Navigation.PushAsync(new resultaatscherm());
                     }
                     else
                     {
+                        indicator.IsVisible = false;
                         await DisplayAlert("", "Er ging iets mis, probeer opnieuw.", "ok");
 
                     }
@@ -208,6 +217,7 @@ namespace carfacApplicatie
                 }
                 else
                 {
+                    indicator.IsVisible = true;
                     var baseClient = new HttpClient();
                     baseClient.DefaultRequestHeaders.TryAddWithoutValidation("CarfacStandardApiJWT", globals.token);
 
@@ -279,19 +289,22 @@ namespace carfacApplicatie
                                 }
                                 else
                                 {
+                                    indicator.IsVisible= false;
                                     await DisplayAlert("", "Er ging iets fout, probeer opnieuw.", "ok");
                                 }
                             }
                             globals.fotodoel = "";
                             uploadbutton.IsVisible = false;
+                            indicator.IsVisible = false;
                             Navigation.PushAsync(new resultaatscherm());
 
                         }
                         else
                         {
+                            indicator.IsVisible = false;
                             await DisplayAlert("", "Er ging iets fout, probeer opnieuw.", "ok");
                         }
-
+                        indicator.IsVisible = false;
                         Navigation.PushAsync(new resultaatscherm());
                     }
                 }
@@ -306,7 +319,9 @@ namespace carfacApplicatie
 
         public async void save_clicked(object sender, EventArgs e)
         {
+            indicator.IsVisible = true;
             DependencyService.Get<ITestInterface>().storePhotoToGallery(globals.bytes, Guid.NewGuid().ToString() + ".png");
+            indicator.IsVisible = false;
             await DisplayAlert("", "Download geslaagd.", "ok");
         }
 
@@ -316,6 +331,7 @@ namespace carfacApplicatie
 
             if (action == "ja")
             {
+                indicator.IsVisible = true;
                 string soort = "Vehicle";
 
                 switch (globals.soort)
@@ -384,20 +400,24 @@ namespace carfacApplicatie
                             }
                             else
                             {
+                                indicator.IsVisible = false;
                                 await DisplayAlert("", "Er ging iets fout, probeer opnieuw.", "ok");
                             }
                         }
                         globals.fotodoel = "";
                         uploadbutton.IsVisible = false;
+                        indicator.IsVisible = false;
                         Navigation.PushAsync(new resultaatscherm());
                     }
                     else
                     {
+                        indicator.IsVisible = false;
                         await DisplayAlert("", "Er ging iets mis, probeer opnieuw.", "ok");
                     }
                 }
                 else
                 {
+                    indicator.IsVisible = false;
                     await DisplayAlert("", "Er ging iets mis, probeer opnieuw.", "ok");
                 }
             }

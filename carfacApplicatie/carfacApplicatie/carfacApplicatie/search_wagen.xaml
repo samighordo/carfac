@@ -35,6 +35,10 @@
                 BorderColor="Black"
                 BorderWidth="1.5"
                 CornerRadius="10"></Button>
+
+            <ActivityIndicator x:Name="indicator" Margin="0,100,0,0" VerticalOptions="Center" HorizontalOptions="Center" IsRunning="True" IsVisible="false"></ActivityIndicator>
+
         </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>

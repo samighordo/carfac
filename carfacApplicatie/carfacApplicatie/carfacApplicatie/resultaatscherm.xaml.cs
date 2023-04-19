@@ -73,7 +73,6 @@ namespace carfacApplicatie
                 byte[] imageData = Convert.FromBase64String(s);
                 ImageSource imagesource = ImageSource.FromStream(() => new MemoryStream(imageData));
 
-
                 // dit is voor de beschrijving te verkrijgen
                 String b = array[2].Substring(18).Replace("\"", "");
 
@@ -138,7 +137,7 @@ namespace carfacApplicatie
             Navigation.PushAsync(new foto());
         }
 
-		async Task neemfoto(Object sender, EventArgs e)
+		async Task maakFoto(Object sender, EventArgs e)
 		{
 			var result = await MediaPicker.CapturePhotoAsync();
 
@@ -158,22 +157,56 @@ namespace carfacApplicatie
 
         }
 
+        async Task maakVideo(Object sender, EventArgs e)
+        {
+            var result = await MediaPicker.CaptureVideoAsync();
+
+            String path = result.FullPath;
+
+            var stream = await result.OpenReadAsync();
+
+            globals.source = new FileImageSource { File = path };
+
+            byte[] imageBytes = File.ReadAllBytes(path);
+            string base64String = Convert.ToBase64String(imageBytes);
+
+            globals.imageBase64 = base64String;
+            globals.fotodoel = "upload";
+
+            List<VideoHelperKlasse> lijst = new List<VideoHelperKlasse>();
+            lijst.Add(new VideoHelperKlasse { videoSource = globals.source });
+
+            globals.videoHelperLijst.Clear();
+            globals.videoHelperLijst.Add(new VideoHelperKlasse { videoSource = globals.source });
+            Navigation.PushAsync(new video());
+        }
+
         public void afbeelding_clicked(object sender, ItemTappedEventArgs e)
         {
             ItemFoto itemfoto = e.Item as ItemFoto;
 
-            afbeeldinglijst.
+            if (itemfoto != null)
+            {
+                globals.bytes = itemfoto.bytes;
+                globals.source = itemfoto.ImageSource;
+                globals.fotoBeschrijving = itemfoto.beschrijving;
+                globals.fotoId = itemfoto.id;
+                globals.fotoDatum = itemfoto.datum;
+            }
 
+            Navigation.PushAsync(new foto());
         }
 
 		async void toon_popup(object sender, EventArgs e)
 		{
-            string action = await DisplayActionSheet("Wat wil je doen?", "upload foto uit gallerij", "neem foto");
+            string action = await DisplayActionSheet("Wat wil je doen?", "cancel", null, "maak foto", "maak video", "upload uit gallerij");
 
-			if (action == "upload foto uit gallerij")
-				kiesfoto(sender, e);
-			else if(action == "neem foto")
-				neemfoto(sender, e);
+            if (action == "upload uit gallerij")
+                kiesfoto(sender, e);
+            else if (action == "maak foto")
+                maakFoto(sender, e);
+            else if (action == "maak video")
+                maakVideo(sender, e);
         }
 
         public void OnDelete(object sender, EventArgs e)
@@ -183,21 +216,16 @@ namespace carfacApplicatie
 
         async void toon_popup2(object sender, EventArgs e)
         {
-            filterPicker.Focus();
-        }
+            List<ItemFoto> lijst = this.list;
+            List<ItemFoto> lijst2 = this.list2;
 
-        async void kiesPickerOptie(object sender, EventArgs e)
-        {
-            if(filterPicker.SelectedItem == "beschrijving")
+            List<ItemFoto> lijst3 = new List<ItemFoto>();
+            List<ItemFoto> lijst4 = new List<ItemFoto>();
+
+            string result = await DisplayPromptAsync("beschrijving", "");
+
+            if(result != null)
             {
-                List<ItemFoto> lijst = this.list;
-                List<ItemFoto> lijst2 = this.list2;
-
-                List<ItemFoto> lijst3 = new List<ItemFoto>();
-                List<ItemFoto> lijst4 = new List<ItemFoto>();
-
-                string result = await DisplayPromptAsync("beschrijving", "");
-
                 foreach (ItemFoto item in lijst)
                 {
 
@@ -227,9 +255,11 @@ namespace carfacApplicatie
                 afbeeldinglijst2.ItemsSource = null;
                 afbeeldinglijst2.ItemsSource = lijst4;
             }
-            filterPicker.SelectedIndex = 2;
         }
+    }
 
-        
+    public class VideoHelperKlasse
+    {
+        public ImageSource videoSource { get; set; }
     }
 }

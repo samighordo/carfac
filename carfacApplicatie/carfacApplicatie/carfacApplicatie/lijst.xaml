@@ -3,32 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="carfacApplicatie.lijst">
     <ContentPage.Content>
-        <StackLayout>
+        <RelativeLayout x:Name="relatief">
+            <StackLayout>
 
-            <Grid>
-                <Label Text="resultaten" TextColor="#0081AB" Margin="10" FontSize="30" Grid.Row="0" Grid.Column="0"></Label>
+                <Grid>
+                    <Label Text="resultaten" TextColor="#0081AB" Margin="10" FontSize="30" Grid.Row="0" Grid.Column="0"></Label>
 
-                <Image Source="sort.png" WidthRequest="70" HorizontalOptions="End" Margin="0,10,10,0" Grid.Row="0" Grid.Column="1">
-                    <Image.GestureRecognizers>
+                    <Image Source="sort.png" WidthRequest="70" HorizontalOptions="End" Margin="0,10,10,0" Grid.Row="0" Grid.Column="1">
+                        <Image.GestureRecognizers>
 
-                        <TapGestureRecognizer Tapped="toon_popup"></TapGestureRecognizer>
+                            <TapGestureRecognizer Tapped="toon_popup"></TapGestureRecognizer>
 
-                    </Image.GestureRecognizers>
-                </Image>
-            </Grid>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
 
-            <ListView
+                <ListView
                 x:Name="resultaatLijst" ItemTapped="item_clicked">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding naam}"
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding naam}"
                                   Detail="{Binding nummer}"
                                   TextColor="Black"
                                   ></TextCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-        </StackLayout>
+            </StackLayout>
+
+            <Grid>
+                <ActivityIndicator x:Name="indicator" Margin="0,0,0,0" VerticalOptions="Center" HorizontalOptions="Center" IsRunning="True" IsVisible="false" 
+                                   Grid.Column="3"
+                                   Grid.Row="5"></ActivityIndicator>
+            </Grid>
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

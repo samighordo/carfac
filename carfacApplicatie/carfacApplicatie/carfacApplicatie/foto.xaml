@@ -4,52 +4,61 @@
              x:Class="carfacApplicatie.foto">
     
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Start">
+        <RelativeLayout x:Name="relatief" HorizontalOptions="Center">
+            <StackLayout VerticalOptions="Start" HorizontalOptions="Center">
 
 
-            <Grid HeightRequest="85">
-                <Image Source="delete.png"
+                <Grid HeightRequest="85">
+                    <Image Source="delete.png"
                        Margin="10"
                        Grid.Row="0"
                        Grid.Column="0">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="verwijder_clicked"/>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image Source="bewerk.png"
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="verwijder_clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="bewerk.png"
                        Margin="10"
                        Grid.Row="0"
                        Grid.Column="1">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="bewerk_clicked"/>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image Source="download.png"
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="bewerk_clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="download.png"
                        Margin="10"
                        Grid.Row="0"
                        Grid.Column="2">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="save_clicked"/>
-                    </Image.GestureRecognizers>
-                </Image>
-            </Grid>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="save_clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
 
-            <Image x:Name="photo" HeightRequest="440"></Image>
+                <Image x:Name="photo" HeightRequest="400"></Image>
 
-            <Label x:Name="beschrijving" Text="beschrijving" TextColor="#0081AB" Margin="30,10,10,0" FontSize="18"></Label>
-            
-            <Editor x:Name="editorBeschrijving" Placeholder="beschrijving" Margin="30,0,10,10"></Editor>
+                <Label x:Name="beschrijving" Text="beschrijving" TextColor="#0081AB" Margin="0,10,10,0" FontSize="18"></Label>
 
-            <Label x:Name="datumUpload" Margin="30,0,10,0" TextColor="#0081AB" FontSize="18" Text="datum upload"></Label>
+                <Editor x:Name="editorBeschrijving" Placeholder="beschrijving" Margin="0,0,10,10"></Editor>
 
-            <Label x:Name="datum" Margin="30,0,10,0" TextColor="Black" FontSize="18"></Label>
+                <Label x:Name="datumUpload" Margin="0,0,10,0" TextColor="#0081AB" FontSize="18" Text="datum upload"></Label>
 
-            <Button x:Name="uploadbutton" Text="upload" Clicked="upload_clicked" IsVisible="false" Margin="50,20,50,20"
+                <Label x:Name="datum" Margin="0,0,10,0" TextColor="Black" FontSize="18"></Label>
+
+                <Button x:Name="uploadbutton" Text="upload" Clicked="upload_clicked" IsVisible="false" Margin="50,20,50,20"
                 BackgroundColor="White"
                 BorderColor="Black"
                 BorderWidth="1.5"
                 CornerRadius="10">
-            </Button>
-        </StackLayout>
+                </Button>
+            </StackLayout>
+
+            <Grid>
+                <ActivityIndicator x:Name="indicator" Margin="0,0,0,0" VerticalOptions="Center" HorizontalOptions="Center" IsRunning="True" IsVisible="false" 
+                                   Grid.Column="3"
+                                   Grid.Row="5"></ActivityIndicator>
+            </Grid>
+        </RelativeLayout>
+
     </ContentPage.Content>
 </ContentPage>

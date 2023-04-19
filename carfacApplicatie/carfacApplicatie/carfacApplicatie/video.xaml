@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="carfacApplicatie.video"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:widget="clr-namespace:Android.Widget;assembly=Mono.Android">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Start">
+
+            <ListView x:Name="videoLijst" HasUnevenRows="True" SeparatorVisibility="None" Margin="0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <xct:MediaElement x:Name="videoview" Source="{Binding videoSource}"></xct:MediaElement>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

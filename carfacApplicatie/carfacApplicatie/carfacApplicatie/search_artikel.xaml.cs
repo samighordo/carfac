@@ -43,6 +43,7 @@ namespace carfacApplicatie
             }
             else
             {
+                indicator.IsVisible = true;
                 var loginContract = new
                 {
                     description = "%" + s + "%"
@@ -66,7 +67,6 @@ namespace carfacApplicatie
                         {
                             String ss = str.Substring(1);
                             String[] arr = ss.Split(',');
-                            Debug.Write(str);
 
                             String artikelnummer = arr[1].Substring(12).Replace("\"", "");
                             String omschrijving = arr[2].Substring(15).Replace("\"", "");
@@ -76,10 +76,12 @@ namespace carfacApplicatie
 
 
                     globals.soort = "artikel";
+                    indicator.IsVisible = false;
                     Navigation.PushAsync(new lijst());
                 }
                 else
                 {
+                    indicator.IsVisible = false;
                     await DisplayAlert("", "Geen artikel met deze beschrijving gevonden.", "ok");
                 }
             }

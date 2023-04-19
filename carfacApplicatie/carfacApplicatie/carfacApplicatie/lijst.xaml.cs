@@ -22,6 +22,8 @@ namespace carfacApplicatie
         {
             InitializeComponent();
 
+            relatief.RaiseChild(indicator);
+
             switch (globals.soort)
             {
                 case "wagen":
@@ -47,6 +49,7 @@ namespace carfacApplicatie
 
         public async void item_clicked(object sender, ItemTappedEventArgs e)
         {
+            indicator.IsVisible= true;
             string str = "";
             string wagenParameter = "";
 
@@ -95,7 +98,6 @@ namespace carfacApplicatie
                     if (response.IsSuccessStatusCode && resultTask.Result != "")
                     {
                         string result = resultTask.Result;
-                        System.Diagnostics.Debug.Write("result1 " + result);
                         resultTask.Wait();
 
                         string[] a = result.Split(',');
@@ -120,17 +122,12 @@ namespace carfacApplicatie
 
                             globals.soort = "wagen";
 
-
-
-
-
                             var loginContract2 = new
                             {
                                 Type = "Vehicle",
                                 Id = int.Parse(globals.id),
                                 Paging = new Paging { StartAtRecord = 1, NumberOfRecords = 100 }
                             };
-
 
                             var content2 = new StringContent(JsonSerializer.Serialize(loginContract2), Encoding.UTF8, "application/json");
                             Task<HttpResponseMessage> responseTask2 = baseClient.PostAsync($"https://dev.carfac.com/standard/api/File/GetFileList", content2);
@@ -166,23 +163,28 @@ namespace carfacApplicatie
                                     }
                                     else
                                     {
+                                        indicator.IsVisible = false;
                                         await DisplayAlert("", "Er ging iets fout, probeer opnieuw.", "ok");
                                     }
                                 }
+                                indicator.IsVisible = false;
                                 Navigation.PushAsync(new resultaatscherm());
                             }
                             else
                             {
+                                indicator.IsVisible = false;
                                 await DisplayAlert("", "Er ging iets fout, probeer opnieuw.", "ok");
                             }
                         }
                         else
                         {
+                            indicator.IsVisible = false;
                             await DisplayAlert("", "Er ging iets fout, probeer opnieuw.", "ok");
                         }
                     }
                     else
                     {
+                        indicator.IsVisible = false;
                         await DisplayAlert("", "Er ging iets fout, probeer opnieuw.", "ok");
                     }
                     break;
@@ -265,6 +267,7 @@ namespace carfacApplicatie
                                         globals.lijst.Add(responseContent3);
                                     }
                                 }
+                                indicator.IsVisible = false;
                                 Navigation.PushAsync(new resultaatscherm());
                             }
                         }
@@ -341,6 +344,7 @@ namespace carfacApplicatie
                                     globals.lijst.Add(responseContent3);
                                 }
                             }
+                            indicator.IsVisible = false;
                             Navigation.PushAsync(new resultaatscherm());
                         }
 
@@ -414,6 +418,7 @@ namespace carfacApplicatie
                                     globals.lijst.Add(responseContent3);
                                 }
                             }
+                            indicator.IsVisible = false;
                             Navigation.PushAsync(new resultaatscherm());
                         }
 

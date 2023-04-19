@@ -49,6 +49,7 @@ namespace carfacApplicatie
             }
             else
             {
+                indicator.IsVisible = true;
                 if (autobar.Placeholder == "nummerplaat")
                 {
                     var loginContract = new
@@ -87,10 +88,12 @@ namespace carfacApplicatie
                         }
                         globals.soort = "wagen";
                         globals.wagenParameter = "nummerplaat";
+                        indicator.IsVisible = false;
                         Navigation.PushAsync(new lijst());
                     }
                     else
                     {
+                        indicator.IsVisible= false;
                         await DisplayAlert("", "Geen wagen met dit nummer gevonden.", "ok");
                     }
                 }
@@ -118,7 +121,6 @@ namespace carfacApplicatie
                             if (a2 != "")
                             {
                                 String a3 = a2.Substring(1);
-                                Debug.Write(a3);
 
                                 String[] a4 = a3.Split(',');
                                 String a5 = a4[4].Substring(13).Replace("\"", "");
@@ -128,16 +130,16 @@ namespace carfacApplicatie
                         }
                         globals.soort = "wagen";
                         globals.wagenParameter = "wagennummer";
+                        indicator.IsVisible = false;
                         Navigation.PushAsync(new lijst());
                     }
                     else
                     {
+                        indicator.IsVisible = false;
                         await DisplayAlert("", "Geen wagen met dit nummer gevonden.", "ok");
                     }
                 }
             }
-
-           
         }
 
         async void toon_popup(object sender, EventArgs e)

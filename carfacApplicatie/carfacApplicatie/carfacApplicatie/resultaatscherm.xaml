@@ -22,12 +22,7 @@
                         </StackLayout>
                     </Frame>
 
-                    <Picker x:Name="filterPicker" IsVisible="False" Title="filter" TitleColor="#0081AB" SelectedIndexChanged="kiesPickerOptie">
-                        <Picker.Items>
-                            <x:String>beschrijving</x:String>
-                            <x:String> </x:String>
-                        </Picker.Items>
-                    </Picker>
+                    
 
                     <Grid>
                         <Image Source="filter.png" HeightRequest="60" HorizontalOptions="End" Margin="0,0,20,0" Grid.Row="0" Grid.Column="4">

@@ -16,26 +16,6 @@ namespace carfacApplicatie
         public string id { get; set; }
         public string datum { get; set; }
 
-        public ICommand touchCommand => new Command(() =>
-        {
-            globals.selecteerMeerdereFotos = true;
-            System.Diagnostics.Debug.Write("gedrukt");
-        });
-
-
-        public ICommand afbeelding_clicked => new Command(() =>
-        {
-            if(globals.selecteerMeerdereFotos == false)
-            {
-                globals.bytes = bytes;
-                globals.source = ImageSource;
-                globals.fotoBeschrijving = beschrijving;
-                globals.fotoId = id;
-                globals.fotoDatum = datum;
-
-                navigation.PushAsync(new foto());
-            }
-            
-        });
+        
     }
 }
