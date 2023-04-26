@@ -5,16 +5,9 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:widget="clr-namespace:Android.Widget;assembly=Mono.Android">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Start">
-
-            <ListView x:Name="videoLijst" HasUnevenRows="True" SeparatorVisibility="None" Margin="0">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <xct:MediaElement x:Name="videoview" Source="{Binding videoSource}"></xct:MediaElement>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            
+            <xct:MediaElement x:Name="videoview" Source="{Binding videoPath}"></xct:MediaElement>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

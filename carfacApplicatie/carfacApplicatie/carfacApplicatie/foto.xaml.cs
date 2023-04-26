@@ -244,7 +244,6 @@ namespace carfacApplicatie
 
 
 
-                    System.Diagnostics.Debug.Write(response);
 
                     if (response.IsSuccessStatusCode)
                     {

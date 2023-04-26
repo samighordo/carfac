@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.CommunityToolkit.Core;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,7 +19,9 @@ namespace carfacApplicatie
         public video()
         {
             InitializeComponent();
-            videoLijst.ItemsSource = globals.videoHelperLijst;
+
+            videoview.Source = globals.videoSource;
         }
+        
     }
 }

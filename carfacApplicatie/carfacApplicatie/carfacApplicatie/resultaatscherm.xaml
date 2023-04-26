@@ -28,7 +28,7 @@
                         <Image Source="filter.png" HeightRequest="60" HorizontalOptions="End" Margin="0,0,20,0" Grid.Row="0" Grid.Column="4">
                             <Image.GestureRecognizers>
 
-                                <TapGestureRecognizer Tapped="toon_popup2"></TapGestureRecognizer>
+                                <TapGestureRecognizer Tapped="filter_beschrijving"></TapGestureRecognizer>
 
                             </Image.GestureRecognizers>
                         </Image>

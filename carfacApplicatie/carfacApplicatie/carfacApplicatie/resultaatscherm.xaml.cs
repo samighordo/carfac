@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Core;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -133,6 +134,7 @@ namespace carfacApplicatie
 
             globals.imageBase64 = base64String;
             globals.fotodoel = "upload";
+            globals.fotoBeschrijving = "";
 
             Navigation.PushAsync(new foto());
         }
@@ -152,6 +154,7 @@ namespace carfacApplicatie
 
 			globals.imageBase64 = base64String;
 			globals.fotodoel = "upload";
+            globals.fotoBeschrijving = "";
 
             Navigation.PushAsync(new foto());
 
@@ -161,23 +164,14 @@ namespace carfacApplicatie
         {
             var result = await MediaPicker.CaptureVideoAsync();
 
-            String path = result.FullPath;
 
-            var stream = await result.OpenReadAsync();
+            string filePath = result.FullPath;
+            var mediaSource = MediaSource.FromFile(filePath);
 
-            globals.source = new FileImageSource { File = path };
+            globals.videoSource = mediaSource;
 
-            byte[] imageBytes = File.ReadAllBytes(path);
-            string base64String = Convert.ToBase64String(imageBytes);
 
-            globals.imageBase64 = base64String;
             globals.fotodoel = "upload";
-
-            List<VideoHelperKlasse> lijst = new List<VideoHelperKlasse>();
-            lijst.Add(new VideoHelperKlasse { videoSource = globals.source });
-
-            globals.videoHelperLijst.Clear();
-            globals.videoHelperLijst.Add(new VideoHelperKlasse { videoSource = globals.source });
             Navigation.PushAsync(new video());
         }
 
@@ -209,12 +203,9 @@ namespace carfacApplicatie
                 maakVideo(sender, e);
         }
 
-        public void OnDelete(object sender, EventArgs e)
-        {
-            DisplayAlert("Delete Context Action", " delete context action", "OK");
-        }
+        
 
-        async void toon_popup2(object sender, EventArgs e)
+        async void filter_beschrijving(object sender, EventArgs e)
         {
             List<ItemFoto> lijst = this.list;
             List<ItemFoto> lijst2 = this.list2;

@@ -432,9 +432,30 @@ namespace carfacApplicatie
 
         async void toon_popup(object sender, EventArgs e)
         {
-            string action = await DisplayActionSheet("sorteer", "numeriek", "alfabetisch");
+            string action="";
+            switch (globals.soort)
+            {
+                case "wagen":
+                    globals.wagenItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
+                    action = await DisplayActionSheet("sorteer", "nummer", "merk");
+                    break;
+                case "klant":
+                    globals.klantItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
+                    action = await DisplayActionSheet("sorteer", "nummer", "naam");
+                    break;
+                case "artikel":
+                    globals.artikelItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
+                    action = await DisplayActionSheet("sorteer", "nummer", "beschrijving");
+                    break;
+                case "werkorder":
+                    globals.werkorderItemLijst.Sort((s1, s2) => s1.naam.CompareTo(s2.naam));
+                    action = await DisplayActionSheet("sorteer", "nummer", "datum");
+                    break;
+                default:
+                    break;
+            }
 
-            if (action == "alfabetisch")
+            if (action == "merk")
             {
                 switch (globals.soort)
                 {
@@ -462,7 +483,7 @@ namespace carfacApplicatie
                         break;
                 }
             }
-            else if (action == "numeriek")
+            else if (action == "nummer")
             {
                 switch (globals.soort)
                 {

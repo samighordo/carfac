@@ -11,6 +11,8 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Core;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using static System.Net.WebRequestMethods;
 
@@ -43,8 +45,6 @@ namespace carfacApplicatie
            
             globals.token = result;
 
-            Debug.Write(result);
-
             Navigation.PushAsync(new homepage());
         }
 
@@ -66,7 +66,6 @@ public static class globals
     public static String fotoBeschrijving;
     public static String fotoDatum;
     public static byte[] bytes;
-    public static List<String> gefilterdeResultatenLijst = new List<string>();
 
     public static List<klantItem> klantItemLijst = new List<klantItem>();
     public static List<wagenItem> wagenItemLijst = new List<wagenItem>();
@@ -74,5 +73,5 @@ public static class globals
     public static List<artikelItem> artikelItemLijst = new List<artikelItem>();
 
     public static String wagenParameter;
-    public static List<VideoHelperKlasse> videoHelperLijst = new List<VideoHelperKlasse>();
+    public static MediaSource videoSource;
 }
