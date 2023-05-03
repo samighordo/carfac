@@ -323,6 +323,18 @@ namespace carfacApplicatie
             indicator.IsVisible = false;
             await DisplayAlert("", "Download geslaagd.", "ok");
         }
+        
+        public async void share_clicked(object sender, EventArgs e)
+        {
+
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title = "foto",
+                File = new ShareFile(globals.fotoFullPath)
+            });
+
+            
+        }
 
         public async void verwijder_clicked(object sender, EventArgs e)
         {

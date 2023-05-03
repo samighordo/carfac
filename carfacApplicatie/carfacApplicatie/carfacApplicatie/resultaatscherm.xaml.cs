@@ -66,6 +66,7 @@ namespace carfacApplicatie
 
 			for(int j = 0; j<i; j++) 
 			{
+                System.Diagnostics.Debug.Write(globals.lijst[j]);
 				// dit is voor de image te verkrijgen
                 String[] array = globals.lijst[j].Split(',');
                 String s = array[10].Substring(8).Replace("\"", "").Trim();
@@ -135,6 +136,7 @@ namespace carfacApplicatie
             globals.imageBase64 = base64String;
             globals.fotodoel = "upload";
             globals.fotoBeschrijving = "";
+            globals.fotoFullPath = path;
 
             Navigation.PushAsync(new foto());
         }
@@ -155,6 +157,7 @@ namespace carfacApplicatie
 			globals.imageBase64 = base64String;
 			globals.fotodoel = "upload";
             globals.fotoBeschrijving = "";
+            globals.fotoFullPath = path;
 
             Navigation.PushAsync(new foto());
 
@@ -162,17 +165,9 @@ namespace carfacApplicatie
 
         async Task maakVideo(Object sender, EventArgs e)
         {
-            var result = await MediaPicker.CaptureVideoAsync();
-
-
-            string filePath = result.FullPath;
-            var mediaSource = MediaSource.FromFile(filePath);
-
-            globals.videoSource = mediaSource;
-
-
-            globals.fotodoel = "upload";
             Navigation.PushAsync(new video());
+
+           
         }
 
         public void afbeelding_clicked(object sender, ItemTappedEventArgs e)
@@ -181,11 +176,11 @@ namespace carfacApplicatie
 
             if (itemfoto != null)
             {
+                globals.fotoId = itemfoto.id;
                 globals.bytes = itemfoto.bytes;
+                globals.fotoDatum = itemfoto.datum;
                 globals.source = itemfoto.ImageSource;
                 globals.fotoBeschrijving = itemfoto.beschrijving;
-                globals.fotoId = itemfoto.id;
-                globals.fotoDatum = itemfoto.datum;
             }
 
             Navigation.PushAsync(new foto());

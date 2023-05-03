@@ -20,7 +20,6 @@ namespace carfacApplicatie
         {
             InitializeComponent();
 
-            videoview.Source = globals.videoSource;
         }
         
     }

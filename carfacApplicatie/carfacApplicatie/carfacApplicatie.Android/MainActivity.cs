@@ -49,6 +49,7 @@ namespace carfacApplicatie.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            Xam.Forms.VideoPlayer.Android.VideoPlayerRenderer.Init();
             Instance = this;
             LoadApplication(new App());
         }

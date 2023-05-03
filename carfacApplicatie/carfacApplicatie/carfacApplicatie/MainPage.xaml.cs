@@ -74,4 +74,5 @@ public static class globals
 
     public static String wagenParameter;
     public static MediaSource videoSource;
+    public static String fotoFullPath;
 }
