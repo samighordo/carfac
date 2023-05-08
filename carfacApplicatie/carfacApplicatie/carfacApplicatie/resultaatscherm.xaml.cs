@@ -66,7 +66,6 @@ namespace carfacApplicatie
 
 			for(int j = 0; j<i; j++) 
 			{
-                System.Diagnostics.Debug.Write(globals.lijst[j]);
 				// dit is voor de image te verkrijgen
                 String[] array = globals.lijst[j].Split(',');
                 String s = array[10].Substring(8).Replace("\"", "").Trim();
@@ -115,6 +114,7 @@ namespace carfacApplicatie
 			afbeeldinglijst2.ItemsSource = list2;
 			globals.lijstlengte = list.Count + 1;
 
+            globals.fotoFullPath = "";
         }
 
         async Task kiesfoto(Object sender, EventArgs e)
