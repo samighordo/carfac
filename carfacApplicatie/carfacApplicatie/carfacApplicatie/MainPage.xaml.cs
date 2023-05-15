@@ -73,6 +73,6 @@ public static class globals
     public static List<artikelItem> artikelItemLijst = new List<artikelItem>();
 
     public static String wagenParameter;
-    public static MediaSource videoSource;
+    public static FileMediaSource videoSource;
     public static String fotoFullPath;
 }

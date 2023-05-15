@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Android.App;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace carfacApplicatie
 {
-    public partial class App : Application
+
+    public partial class App : Xamarin.Forms.Application
     {
         public App()
         {

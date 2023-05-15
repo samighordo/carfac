@@ -326,11 +326,33 @@ namespace carfacApplicatie
         
         public async void share_clicked(object sender, EventArgs e)
         {
-            await Share.RequestAsync(new ShareFileRequest
+
+            if (globals.fotoFullPath == "")
             {
-                Title = "foto",
-                File = new ShareFile(globals.fotoFullPath)
-            });
+                string naam = Guid.NewGuid().ToString();
+                DependencyService.Get<ITestInterface>().storePhotoToGallery(globals.bytes, naam + ".png");
+
+                string storagePath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath;
+                string fullPath = storagePath + "/" + naam + ".png";
+
+                globals.fotoFullPath = fullPath;
+                await Share.RequestAsync(new ShareFileRequest
+                {
+                    Title = "foto",
+                    File = new ShareFile(globals.fotoFullPath)
+                });
+                globals.fotoFullPath = "";
+            }
+            else
+            {
+                await Share.RequestAsync(new ShareFileRequest
+                {
+                    Title = "foto",
+                    File = new ShareFile(globals.fotoFullPath)
+                });
+                globals.fotoFullPath = "";
+            }
+
         }
 
         public async void verwijder_clicked(object sender, EventArgs e)

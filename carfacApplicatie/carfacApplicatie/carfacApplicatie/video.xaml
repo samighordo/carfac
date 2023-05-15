@@ -5,8 +5,66 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:widget="clr-namespace:Android.Widget;assembly=Mono.Android"
              xmlns:video="clr-namespace:Xam.Forms.VideoPlayer;assembly=Xam.Forms.VideoPlayer">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Start">
-            <xct:MediaElement></xct:MediaElement>
-        </StackLayout>
+        
+
+
+        <RelativeLayout x:Name="relatief" HorizontalOptions="Center">
+            <StackLayout VerticalOptions="Start" HorizontalOptions="Center">
+
+
+                <Grid HeightRequest="85">
+                    <Image Source="delete.png"
+                       Margin="10"
+                       Grid.Row="0"
+                       Grid.Column="0">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="verwijder_clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="bewerk.png"
+                       Margin="10"
+                       Grid.Row="0"
+                       Grid.Column="1">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="bewerk_clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="download.png"
+                       Margin="10"
+                       Grid.Row="0"
+                       Grid.Column="2">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="save_clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="share.png"
+                       Margin="10"
+                       Grid.Row="0"
+                       Grid.Column="3">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="share_clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+
+                <xct:MediaElement x:Name="videoElement" HeightRequest="300" WidthRequest="200"></xct:MediaElement>
+
+                    <Label x:Name="beschrijving" Text="beschrijving" TextColor="#0081AB" Margin="0,10,10,0" FontSize="18"></Label>
+
+                <Editor x:Name="editorBeschrijving" Placeholder="beschrijving" Margin="0,0,10,10"></Editor>
+
+                <Label x:Name="datumUpload" Margin="0,0,10,0" TextColor="#0081AB" FontSize="18" Text="datum upload"></Label>
+
+                <Label x:Name="datum" Margin="0,0,10,0" TextColor="Black" FontSize="18"></Label>
+
+                <Button x:Name="uploadbutton" Text="upload" Clicked="upload_clicked" IsVisible="false" Margin="50,20,50,20"
+                BackgroundColor="White"
+                BorderColor="Black"
+                BorderWidth="1.5"
+                CornerRadius="10">
+                </Button>
+            </StackLayout>
+        </RelativeLayout>
+        
     </ContentPage.Content>
 </ContentPage>
