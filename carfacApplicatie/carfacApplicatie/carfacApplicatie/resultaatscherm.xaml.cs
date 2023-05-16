@@ -163,6 +163,28 @@ namespace carfacApplicatie
 
         }
 
+        async Task maakVideo(Object sender, EventArgs e)
+        {
+            var result = await MediaPicker.CaptureVideoAsync();
+
+            String path = result.FullPath;
+
+            var stream = await result.OpenReadAsync();
+
+            globals.videoSource = new FileMediaSource { File = path };
+
+            byte[] imageBytes = File.ReadAllBytes(path);
+            string base64String = Convert.ToBase64String(imageBytes);
+
+            globals.imageBase64 = base64String;
+            globals.fotodoel = "upload";
+            globals.fotoBeschrijving = "";
+            globals.fotoFullPath = path;
+
+            Navigation.PushAsync(new video());
+
+        }
+
         async Task kiesVideo(Object sender, EventArgs e)
         {
             var filename = await MediaPicker.PickVideoAsync(new MediaPickerOptions
@@ -200,7 +222,7 @@ namespace carfacApplicatie
 
 		async void toon_popup(object sender, EventArgs e)
 		{
-            string action = await DisplayActionSheet("Wat wil je doen?", "cancel", null, "maak foto", "kies video", "kies foto");
+            string action = await DisplayActionSheet("Wat wil je doen?", "cancel", null, "maak foto", "maak video", "kies foto", "kies video");
 
             if (action == "kies foto")
                 kiesfoto(sender, e);
@@ -208,6 +230,8 @@ namespace carfacApplicatie
                 maakFoto(sender, e);
             else if (action == "kies video")
                 kiesVideo(sender, e);
+            else if (action == "maak video")
+                maakVideo(sender, e);
         }
 
         
