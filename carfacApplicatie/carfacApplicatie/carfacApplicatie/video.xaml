@@ -64,6 +64,11 @@
                 CornerRadius="10">
                 </Button>
             </StackLayout>
+            <Grid>
+                <ActivityIndicator x:Name="indicator" Margin="0,0,0,0" VerticalOptions="Center" HorizontalOptions="Center" IsRunning="True" IsVisible="false" 
+                                   Grid.Column="3"
+                                   Grid.Row="5"></ActivityIndicator>
+            </Grid>
         </RelativeLayout>
         
     </ContentPage.Content>

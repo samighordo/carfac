@@ -26,7 +26,19 @@ namespace carfacApplicatie
             videoElement.Source = globals.videoSource;
 
             if(globals.fotodoel == "upload")
+            {
                 uploadbutton.IsVisible = true;
+                datum.Text = "";
+
+            }
+            else
+                datum.Text = globals.fotoDatum;
+
+
+            if (globals.fotoBeschrijving != null)
+            {
+                editorBeschrijving.Text = globals.fotoBeschrijving;
+            }
         }
 
         async void kiesVideo()
@@ -37,6 +49,7 @@ namespace carfacApplicatie
 
         async void upload_clicked(object sender, EventArgs e)
         {
+            indicator.IsVisible = true;
             var baseClient = new HttpClient();
             baseClient.DefaultRequestHeaders.TryAddWithoutValidation("CarfacStandardApiJWT", globals.token);
 
@@ -193,6 +206,7 @@ namespace carfacApplicatie
 
         public async void verwijder_clicked(object sender, EventArgs e)
         {
+            indicator.IsVisible= true;
             string action = await DisplayActionSheet("Ben je zeker dat je dit wilt verwijderen", "ja", "nee");
 
             if (action == "ja")

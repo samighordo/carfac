@@ -63,6 +63,32 @@
 
                     </FlexLayout>
 
+                    <FlexLayout>
+
+                        <ListView x:Name="videoLijst" HasUnevenRows="True" SeparatorVisibility="None" ItemTapped="video_clicked" Margin="0">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <xct:MediaElement Source="{Binding fileMediaSource}" WidthRequest="300" HeightRequest="200" Margin="10"
+                                           AutomationProperties.Name="{Binding beschrijving}"></xct:MediaElement>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <ListView x:Name="videoLijst2" HasUnevenRows="True" SeparatorVisibility="None" ItemTapped="video_clicked" Margin="0">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <xct:MediaElement Source="{Binding fileMediaSource}" WidthRequest="300" HeightRequest="200" Margin="10"
+                                           AutomationProperties.Name="{Binding beschrijving}"></xct:MediaElement>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </FlexLayout>
+
                 </StackLayout>
 
             </ScrollView>

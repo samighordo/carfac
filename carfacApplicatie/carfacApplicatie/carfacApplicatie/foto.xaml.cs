@@ -47,7 +47,6 @@ namespace carfacApplicatie
 
             photo.Source = globals.source;
             editorBeschrijving.Placeholder = "beschrijving";
-            datum.Text = globals.fotoDatum;
 
             if (globals.fotoBeschrijving != null)
             {
@@ -58,7 +57,11 @@ namespace carfacApplicatie
             {
                 uploadbutton.IsVisible = true;
                 editorBeschrijving.Placeholder = "beschrijving";
+                datum.Text = "";
+
             }
+            else
+                datum.Text = globals.fotoDatum;
         }
 
         async void upload_clicked(object sender, EventArgs e)

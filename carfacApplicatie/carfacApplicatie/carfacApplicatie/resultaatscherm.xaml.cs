@@ -1,6 +1,7 @@
 ﻿using Android.OS;
 using Android.Webkit;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,9 @@ namespace carfacApplicatie
 	{
         List<ItemFoto> list;
         List<ItemFoto> list2;
+
+        List<ItemVideo> listVideo;
+        List<ItemVideo> listVideo2;
 
         public resultaatscherm()
 		{
@@ -62,56 +66,130 @@ namespace carfacApplicatie
 			this.list = new List<ItemFoto>();
             this.list2 = new List<ItemFoto>();
 
+            this.listVideo = new List<ItemVideo>();
+            this.listVideo2 = new List<ItemVideo>();
+
             int i = (globals.lijst.Count / 2);
 
 			for(int j = 0; j<i; j++) 
 			{
+                System.Diagnostics.Debug.Write(globals.lijst[j]);
 				// dit is voor de image te verkrijgen
                 String[] array = globals.lijst[j].Split(',');
-                String s = array[10].Substring(8).Replace("\"", "").Trim();
-                s = s.Replace("}", "");
 
-                byte[] imageData = Convert.FromBase64String(s);
-                ImageSource imagesource = ImageSource.FromStream(() => new MemoryStream(imageData));
+                if (array[3].Replace("\"", "").Substring(9) == "jpg" )
+                {
+                    String s = array[10].Substring(8).Replace("\"", "").Trim();
+                    s = s.Replace("}", "");
 
-                // dit is voor de beschrijving te verkrijgen
-                String b = array[2].Substring(18).Replace("\"", "");
+                    byte[] imageData = Convert.FromBase64String(s);
+                    ImageSource imagesource = ImageSource.FromStream(() => new MemoryStream(imageData));
 
-                // dit is voor het id te verkrijgen
-                string id = array[0].Substring(10);
+                    // dit is voor de beschrijving te verkrijgen
+                    String b = array[2].Substring(18).Replace("\"", "");
 
-                // dit is voor de datum te verkrijgen
-                String c = array[7];
-                c = c.Substring(16, 10);
+                    // dit is voor het id te verkrijgen
+                    string id = array[0].Substring(10);
 
-                this.list.Add(new ItemFoto { beschrijving = b, ImageSource = imagesource, bytes = imageData, id = id, datum = c });
+                    // dit is voor de datum te verkrijgen
+                    String c = array[7];
+                    c = c.Substring(16, 10);
+
+                    this.list.Add(new ItemFoto { beschrijving = b, ImageSource = imagesource, bytes = imageData, id = id, datum = c });
+                }
+                else
+                {
+                    String s = array[10].Substring(8).Replace("\"", "").Trim();
+                    s = s.Replace("}", "");
+
+                    byte[] bytes = Convert.FromBase64String(s);
+
+                    string tempFilePath = Path.GetTempFileName();
+
+                    File.WriteAllBytes(tempFilePath, bytes);
+
+                    var fileSource = new FileMediaSource
+                    {
+                        File = tempFilePath
+                    };
+
+                    // dit is voor de beschrijving te verkrijgen
+                    String b = array[2].Substring(18).Replace("\"", "");
+
+                    // dit is voor het id te verkrijgen
+                    string id = array[0].Substring(10);
+
+                    // dit is voor de datum te verkrijgen
+                    String c = array[7];
+                    c = c.Substring(16, 10);
+
+                }
             }
 
 			for(int j = i; j < globals.lijst.Count; j++)
 			{
+                System.Diagnostics.Debug.Write(globals.lijst[j]);
                 // dit is voor de image te verkrijgen
                 String[] array = globals.lijst[j].Split(',');
-                String s = array[10].Substring(8).Replace("\"", "").Trim();
-                s = s.Replace("}", "");
+                if (array[3].Replace("\"", "").Substring(9) == "jpg")
 
-                byte[] imageData = Convert.FromBase64String(s);
-                ImageSource imagesource = ImageSource.FromStream(() => new MemoryStream(imageData));
+                {
+                    String s = array[10].Substring(8).Replace("\"", "").Trim();
+                    s = s.Replace("}", "");
 
-                // dit is voor de beschrijving te verkrijgen
-                String b = array[2].Substring(18).Replace("\"", "");
+                    byte[] imageData = Convert.FromBase64String(s);
+                    ImageSource imagesource = ImageSource.FromStream(() => new MemoryStream(imageData));
 
-                // dit is voor het id te verkrijgen
-                string id = array[0].Substring(10);
+                    // dit is voor de beschrijving te verkrijgen
+                    String b = array[2].Substring(18).Replace("\"", "");
 
-                // dit is voor de datum te verkrijgen
-                String c = array[7];
-                c = c.Substring(16, 10);
+                    // dit is voor het id te verkrijgen
+                    string id = array[0].Substring(10);
 
-                this.list2.Add(new ItemFoto { beschrijving = b, ImageSource = imagesource, bytes = imageData, id = id, datum = c });
+                    // dit is voor de datum te verkrijgen
+                    String c = array[7];
+                    c = c.Substring(16, 10);
+
+                    this.list2.Add(new ItemFoto { beschrijving = b, ImageSource = imagesource, bytes = imageData, id = id, datum = c });
+
+                }
+
+                else
+                {
+                    String s = array[10].Substring(8).Replace("\"", "").Trim();
+                    s = s.Replace("}", "");
+
+                    byte[] bytes = Convert.FromBase64String(s);
+
+                    string tempFilePath = Path.GetTempFileName();
+
+                    File.WriteAllBytes(tempFilePath, bytes);
+
+                    var fileSource = new FileMediaSource
+                    {
+                        File = tempFilePath
+                    };
+
+                    // dit is voor de beschrijving te verkrijgen
+                    String b = array[2].Substring(18).Replace("\"", "");
+
+                    // dit is voor het id te verkrijgen
+                    string id = array[0].Substring(10);
+
+                    // dit is voor de datum te verkrijgen
+                    String c = array[7];
+                    c = c.Substring(16, 10);
+
+                }
+
             }	
 
 			afbeeldinglijst.ItemsSource = list;
 			afbeeldinglijst2.ItemsSource = list2;
+
+            videoLijst.ItemsSource = listVideo;
+            videoLijst2.ItemsSource = listVideo2;
+
 			globals.lijstlengte = list.Count + 1;
 
             globals.fotoFullPath = "";
@@ -220,7 +298,23 @@ namespace carfacApplicatie
             Navigation.PushAsync(new foto());
         }
 
-		async void toon_popup(object sender, EventArgs e)
+        public void video_clicked(object sender, ItemTappedEventArgs e)
+        {
+            ItemVideo itemVideo = e.Item as ItemVideo;
+
+            if (itemVideo != null)
+            {
+                globals.fotoId = itemVideo.id;
+                globals.bytes = itemVideo.bytes;
+                globals.fotoDatum = itemVideo.datum;
+                globals.videoSource = itemVideo.fileMediaSource;
+                globals.fotoBeschrijving = itemVideo.beschrijving;
+            }
+
+            Navigation.PushAsync(new video());
+        }
+
+        async void toon_popup(object sender, EventArgs e)
 		{
             string action = await DisplayActionSheet("Wat wil je doen?", "cancel", null, "maak foto", "maak video", "kies foto", "kies video");
 
